@@ -285,6 +285,8 @@
             position: relative;
             opacity: 0;
             transform: translateY(20px);
+            display: flex;
+            flex-direction: column;
         }
 
         .producto-card:hover {
@@ -323,6 +325,9 @@
 
         .producto-info {
             padding: 1.5rem;
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
         }
 
         .producto-categoria {
@@ -345,12 +350,14 @@
             color: #666;
             margin-bottom: 1.5rem;
             font-size: 0.95rem;
+            flex-grow: 1;
         }
 
         .producto-footer {
             display: flex;
             justify-content: space-between;
             align-items: center;
+            margin-top: auto;
         }
 
         .producto-precio {
@@ -358,8 +365,15 @@
             font-weight: 800;
             color: var(--rojo-pasion);
         }
+        .producto-precio-por-kg {
+            font-size: 0.9rem;
+            font-weight: 500;
+            color: var(--negro-profundo);
+        }
 
-        .producto-btn {
+
+        /* Estilos para el botón "Añadir" */
+        .producto-btn.add-to-cart-btn {
             background: var(--amarillo-oro);
             color: var(--negro-profundo);
             border: none;
@@ -369,19 +383,126 @@
             font-weight: 700;
             cursor: pointer;
             transition: var(--transicion);
-            display: flex;
+            display: flex; /* Asegura que el icono y texto estén centrados */
             align-items: center;
         }
 
-        .producto-btn i {
+        .producto-btn.add-to-cart-btn i {
             margin-right: 0.5rem;
         }
 
-        .producto-btn:hover {
+        .producto-btn.add-to-cart-btn:hover {
             background: var(--rojo-pasion);
             color: white;
             transform: scale(1.05);
         }
+
+        /* NUEVOS ESTILOS: Controles de cantidad en la tarjeta */
+        .producto-footer .quantity-controls {
+            display: flex;
+            align-items: center;
+            gap: 5px; /* Espacio entre los botones y el número */
+        }
+
+        .producto-footer .quantity-controls .quantity-btn {
+            /* Estilos para los botones + y - en la tarjeta */
+            background: var(--blanco-crema);
+            border: var(--borde);
+            border-radius: 50%;
+            width: 30px; /* Tamaño ligeramente mayor */
+            height: 30px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            font-weight: bold;
+            transition: var(--transicion);
+            color: var(--negro-profundo);
+            padding: 0;
+            font-size: 1.1rem; /* Tamaño del símbolo */
+        }
+
+        .producto-footer .quantity-controls .quantity-btn:hover {
+             background: var(--verde-agave); /* Un color diferente al añadir para distinguirlo */
+             color: white;
+             border-color: var(--verde-agave);
+        }
+
+        .producto-footer .quantity-controls .quantity-btn.decrease-card {
+            color: var(--rojo-pasion);
+            border-color: rgba(230, 57, 70, 0.3);
+        }
+
+        .producto-footer .quantity-controls .quantity-btn.decrease-card:hover {
+            background: var(--rojo-pasion);
+            color: white;
+        }
+
+        .producto-footer .quantity-controls .item-quantity {
+            font-size: 1.2rem;
+            font-weight: 700;
+            min-width: 20px; /* Asegura que el número tenga espacio */
+            text-align: center;
+        }
+
+        /* Styles for by-weight products */
+        .producto-controles-peso {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 1rem;
+            align-items: center;
+            flex-wrap: wrap; /* Allow wrapping on smaller screens */
+        }
+
+        .producto-controles-peso input[type="number"] {
+            width: 80px; /* Slightly wider for number input */
+            padding: 0.5rem;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            text-align: center;
+            font-family: 'Montserrat', sans-serif;
+            font-size: 0.9rem;
+        }
+
+        .producto-controles-peso select {
+            padding: 0.5rem;
+            border: 1px solid #ddd; /* Reverted to default-like border */
+            border-radius: 5px;
+            font-family: 'Montserrat', sans-serif;
+            font-size: 0.9rem;
+            color: var(--negro-profundo);
+            background-color: white; /* Reverted to white background */
+            transition: none; /* Removed transition */
+            appearance: menulist-button; /* Reverted to default appearance */
+            -webkit-appearance: menulist-button;
+            -moz-appearance: menulist-button;
+            background-image: none; /* Removed custom arrow */
+            background-repeat: initial;
+            background-position: initial;
+            background-size: initial;
+            padding-right: 1rem; /* Reset padding */
+        }
+
+        .producto-btn-peso {
+             background: var(--verde-agave);
+             color: white;
+             width: 100%;
+        }
+        .producto-btn-peso:hover {
+            background: #228A7D;
+        }
+
+        .visually-hidden {
+             position: absolute;
+             width: 1px;
+             height: 1px;
+             margin: -1px;
+             padding: 0;
+             overflow: hidden;
+             clip: rect(0, 0, 0, 0);
+             border: 0;
+        }
+
 
         /* Testimonios */
         .testimonios {
@@ -600,7 +721,6 @@
             position: fixed;
             bottom: 30px;
             right: 30px;
-            /* Desktop: Use column to stack elements and absolute positioning */
             display: flex;
             flex-direction: column;
             align-items: flex-end;
@@ -623,10 +743,9 @@
             transition: var(--transicion);
             animation: bounce 2s infinite;
             flex-shrink: 0;
-            position: relative; /* Keep relative for z-index */
+            position: relative;
             z-index: 2;
-            /* Desktop Positioning */
-             margin-top: 15px; /* Gap between label and button */
+             margin-top: 15px;
         }
 
         .whatsapp-float:hover {
@@ -644,13 +763,12 @@
              white-space: nowrap;
              transition: all 0.3s ease-out;
              z-index: 1;
-             /* Desktop Positioning */
-             position: static; /* Override absolute positioning for flexbox */
-             margin-bottom: 0; /* Remove bottom margin from flex item */
-             margin-right: 0; /* Remove right margin from flex item */
+             position: static;
+             margin-bottom: 0;
+             margin-right: 0;
+             cursor: pointer; /* Make the label clickable */
         }
 
-        /* Pseudo-element for the message bubble tail */
         .whatsapp-label::after {
              content: '';
              position: absolute;
@@ -659,7 +777,6 @@
              border-left: 8px solid transparent;
              border-right: 8px solid transparent;
              border-top: 8px solid rgba(37, 211, 102, 0.9);
-             /* Desktop Positioning */
              bottom: -8px;
              right: 15px;
              transform: translateX(50%);
@@ -753,8 +870,8 @@
             color: var(--negro-profundo);
         }
 
-        .whatsapp-form-group input,
-        .whatsapp-form-group select,
+        .whatsapp-form-group input[type="text"],
+        .whatsapp-form-group input[type="number"],
         .whatsapp-form-group textarea {
             width: 100%;
             padding: 0.8rem 1rem;
@@ -762,7 +879,29 @@
             border-radius: 5px;
             font-family: 'Montserrat', sans-serif;
             font-size: 1rem;
+            color: var(--negro-profundo);
+            background-color: var(--blanco-crema);
         }
+
+         .whatsapp-form-group select {
+             width: 100%;
+             padding: 0.8rem 1rem;
+             border: 1px solid #ddd; /* Reverted to default-like border */
+             border-radius: 5px;
+             font-family: 'Montserrat', sans-serif;
+             font-size: 1rem;
+             color: var(--negro-profundo);
+             background-color: white; /* Reverted to white background */
+             transition: none; /* Removed transition */
+             appearance: menulist-button; /* Reverted to default appearance */
+             -webkit-appearance: menulist-button;
+             -moz-appearance: menulist-button;
+             background-image: none; /* Removed custom arrow */
+             background-repeat: initial;
+             background-position: initial;
+             background-size: initial;
+             padding-right: 1rem; /* Reset padding */
+         }
 
         .whatsapp-form-group textarea {
             min-height: 100px;
@@ -825,6 +964,14 @@
         .whatsapp-submit:hover {
             background-color: #128C7E;
         }
+        .whatsapp-submit:disabled {
+            background-color: #9fd4b7;
+            cursor: not-allowed;
+        }
+        .whatsapp-submit .fa-spinner {
+            margin-right: 8px;
+        }
+
 
         .item-actions {
             margin-left: 15px;
@@ -940,7 +1087,7 @@
 
         .notification.success {
             background-color: #25D366;
-            box-shadow: 0 4px 12px rgba(37, 211, 102, 0.3);
+            box-shadow: 0 44px 12px rgba(37, 211, 102, 0.3);
         }
 
         .notification.error {
@@ -1008,6 +1155,7 @@
             animation: fadeInUp 0.6s ease-out forwards;
         }
 
+        /* Puedes ajustar o eliminar los delays si prefieres */
         .producto-card:nth-child(1) {
             animation-delay: 0.1s;
         }
@@ -1135,17 +1283,15 @@
                   display: block;
               }
 
-             /* General adjustments for 992px and below */
             .logo {
                 font-size: 3.5rem;
             }
 
-             /* WhatsApp Button and Label Positioning on Mobile (Flexbox) */
              .whatsapp-container {
                 bottom: 20px;
                 right: 20px;
                 display: flex;
-                flex-direction: column; /* Label above button */
+                flex-direction: column;
                 align-items: flex-end;
                 gap: 8px;
                 width: auto;
@@ -1165,26 +1311,27 @@
                  margin-bottom: 0;
                  margin-right: 0;
                  padding: 6px 12px;
+                 border-radius: 10px;
                  font-size: 0.8rem;
-                 border-radius: 8px;
+                 font-weight: 600;
                  white-space: nowrap;
-                 z-index: auto;
-                 align-self: flex-end;
-                 position: relative; /* Needed for the ::after pseudo-element to be positioned relative to the label */
+                 transition: all 0.3s ease-out;
+                 z-index: 1;
+                 position: relative;
+                 cursor: pointer;
              }
 
              .whatsapp-label::after {
                  content: '';
-                 position: absolute; /* Position relative to the label */
+                 position: absolute;
                  width: 0;
                  height: 0;
                  border-left: 6px solid transparent;
                  border-right: 6px solid transparent;
                  border-top: 6px solid rgba(37, 211, 102, 0.9);
-                 /* Position tail under the label */
-                 bottom: -6px; /* Position below the label */
-                 right: 5px; /* Adjust right to shift right */
-                 transform: translateX(0%); /* No horizontal transform needed with right positioning */
+                 bottom: -6px;
+                 right: 5px;
+                 transform: translateX(0%);
              }
         }
 
@@ -1259,9 +1406,21 @@
                  font-size: 1.4rem;
              }
 
-             .producto-btn {
-                 padding: 0.5rem 1rem;
-                 font-size: 0.9rem;
+             /* Ajuste para que los controles de cantidad en la tarjeta quepan */
+             .producto-footer {
+                 flex-direction: column; /* Apilar precio y controles */
+                 align-items: flex-start; /* Alinear a la izquierda */
+                 gap: 10px; /* Espacio entre ellos */
+             }
+
+             .producto-footer .quantity-controls {
+                gap: 8px; /* Ajuste de espacio */
+             }
+
+             .producto-footer .quantity-controls .quantity-btn {
+                 width: 25px; /* Ajuste de tamaño de botones */
+                 height: 25px;
+                 font-size: 1rem;
              }
 
             .testimonios-title {
@@ -1284,7 +1443,6 @@
                  font-size: 1rem;
              }
 
-             /* WhatsApp label positioning adjustments for smaller mobile screens */
               .whatsapp-label {
                  padding: 5px 10px;
                  font-size: 0.8rem;
@@ -1293,7 +1451,7 @@
 
              .whatsapp-label::after {
                  bottom: -6px;
-                 right: 5px; /* Keep right: 5px for consistency or adjust if needed */
+                 right: 5px;
                  border-left: 5px solid transparent;
                  border-right: 5px solid transparent;
                  border-top: 5px solid rgba(37, 211, 102, 0.9);
@@ -1383,29 +1541,26 @@
              }
 
              .notification {
-                bottom: 15px; /* Un poco más arriba */
-                 padding: 8px 15px; /* Relleno más pequeño */
-                 font-size: 0.8rem; /* Fuente ligeramente más pequeña */
-                 /* Puedes ajustar el border-radius si quieres bordes más o menos redondeados */
-                 border-radius: 30px; /* Un poco menos redondeado si prefieres */
+                bottom: 15px;
+                 padding: 8px 15px;
+                 font-size: 0.8rem;
+                 border-radius: 30px;
              }
 
              .notification i {
                  font-size: 0.8rem;
              }
          }
-
-         /* Rule to remove top margin from the first section using .catalogo class after .cta-final */
         #nosotros.catalogo {
-            margin-top: 0; /* Remove the top margin */
-            margin-bottom: 5rem; /* Keep the bottom margin if needed for spacing before the next section/footer */
+            margin-top: 0;
+            margin-bottom: 5rem;
         }
     </style>
 
 </head>
 <body>
     <section id="inicio" class="hero">
-        <h1 class="logo">Taquería <span class="botudo">"El Botudo"</span></h1>
+        <h1 class="logo">"El <span class="botudo">Botudo"</span></h1>
         <p class="slogan">Sabores tradicionales con un toque moderno <br> - Donde la Tradición Cobra Vida en Cada Taco -</p>
         <a href="#catalogo" class="btn-destacado">Ver Menú Completo</a>
     </section>
@@ -1436,9 +1591,11 @@
             <button class="filtro-btn" data-categoria="tacos">Tacos</button>
             <button class="filtro-btn" data-categoria="orden">Orden</button>
             <button class="filtro-btn" data-categoria="paquetes">Paquetes</button>
+             <button class="filtro-btn" data-categoria="especiales">Especiales</button>
             <button class="filtro-btn" data-categoria="extras">Extras</button>
             <button class="filtro-btn" data-categoria="bebidas">Bebidas</button>
             <button class="filtro-btn" data-categoria="postres">Postres</button>
+            <button class="filtro-btn" data-categoria="peso">Carne por Peso</button>
         </div>
 
         <div class="productos-grid">
@@ -1453,7 +1610,12 @@
                     <p class="producto-desc">Suave, sabrosa y perfecta. Descubre por qué nuestra cecina es la favorita.</p>
                     <div class="producto-footer">
                         <span class="producto-precio">$30</span>
-                        <button class="producto-btn"><i class="fas fa-plus"></i> Añadir</button>
+                        <div class="quantity-controls" style="display: none;">
+                            <button type="button" class="quantity-btn decrease-card" aria-label="Disminuir cantidad">-</button>
+                            <span class="item-quantity">0</span>
+                            <button type="button" class="quantity-btn increase-card" aria-label="Aumentar cantidad">+</button>
+                        </div>
+                        <button class="producto-btn add-to-cart-btn"><i class="fas fa-plus"></i> Añadir</button>
                     </div>
                 </div>
             </div>
@@ -1468,7 +1630,12 @@
                     <p class="producto-desc">Prepárate para la explosión de sabor de nuestra jugosa longaniza con almendras.</p>
                     <div class="producto-footer">
                         <span class="producto-precio">$30</span>
-                        <button class="producto-btn"><i class="fas fa-plus"></i> Añadir</button>
+                        <div class="quantity-controls" style="display: none;">
+                            <button type="button" class="quantity-btn decrease-card" aria-label="Disminuir cantidad">-</button>
+                            <span class="item-quantity">0</span>
+                            <button type="button" class="quantity-btn increase-card" aria-label="Aumentar cantidad">+</button>
+                        </div>
+                        <button class="producto-btn add-to-cart-btn"><i class="fas fa-plus"></i> Añadir</button>
                     </div>
                 </div>
             </div>
@@ -1483,7 +1650,12 @@
                     <p class="producto-desc">Déjate seducir por el color y sabor profundo de nuestra carne enchilada casera.</p>
                     <div class="producto-footer">
                         <span class="producto-precio">$30</span>
-                        <button class="producto-btn"><i class="fas fa-plus"></i> Añadir</button>
+                        <div class="quantity-controls" style="display: none;">
+                            <button type="button" class="quantity-btn decrease-card" aria-label="Disminuir cantidad">-</button>
+                            <span class="item-quantity">0</span>
+                            <button type="button" class="quantity-btn increase-card" aria-label="Aumentar cantidad">+</button>
+                        </div>
+                        <button class="producto-btn add-to-cart-btn"><i class="fas fa-plus"></i> Añadir</button>
                     </div>
                 </div>
             </div>
@@ -1499,7 +1671,12 @@
                     <p class="producto-desc">No te decidas por uno, ¡pruébalos juntos! Nuestro Campechano: lo mejor de dos mundos.</p>
                     <div class="producto-footer">
                         <span class="producto-precio">$35</span>
-                        <button class="producto-btn"><i class="fas fa-plus"></i> Añadir</button>
+                        <div class="quantity-controls" style="display: none;">
+                            <button type="button" class="quantity-btn decrease-card" aria-label="Disminuir cantidad">-</button>
+                            <span class="item-quantity">0</span>
+                            <button type="button" class="quantity-btn increase-card" aria-label="Aumentar cantidad">+</button>
+                        </div>
+                        <button class="producto-btn add-to-cart-btn"><i class="fas fa-plus"></i> Añadir</button>
                     </div>
                 </div>
             </div>
@@ -1515,23 +1692,75 @@
                     <p class="producto-desc">¡La experiencia completa en un plato! 180gr de tu carne favorita, tortillas a mano, pico de gallo, salsa verde y roja, crema, nopales, cebolla y frijoles de olla.</p>
                     <div class="producto-footer">
                         <span class="producto-precio">$170</span>
-                        <button class="producto-btn"><i class="fas fa-plus"></i> Añadir</button>
+                         <div class="quantity-controls" style="display: none;">
+                            <button type="button" class="quantity-btn decrease-card" aria-label="Disminuir cantidad">-</button>
+                            <span class="item-quantity">0</span>
+                            <button type="button" class="quantity-btn increase-card" aria-label="Aumentar cantidad">+</button>
+                        </div>
+                        <button class="producto-btn add-to-cart-btn"><i class="fas fa-plus"></i> Añadir</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="producto-card" data-categoria="especiales">
+                <div class="producto-img-container">
+                    <img src="https://cloudfront-us-east-1.images.arcpublishing.com/infobae/JBECRDKR3FDXJIRI2AQOYFHY6I.jpg" alt="Caldo pancita de res" class="producto-img">
+                </div>
+                <div class="producto-info">
+                    <div class="producto-badge">Nuevo</div>
+                    <span class="producto-categoria">Caldos</span>
+                    <h3 class="producto-nombre">Pancita Grande</h3>
+                    <p class="producto-desc">Tradicional caldo de pancita de res, ideal para empezar el día con energía o recuperarse. Servido con tortillas hechas a mano, cebolla, cilantro y limón.</p>
+                    <div class="producto-footer">
+                        <span class="producto-precio">$90</span>
+                         <div class="quantity-controls" style="display: none;">
+                            <button type="button" class="quantity-btn decrease-card" aria-label="Disminuir cantidad">-</button>
+                            <span class="item-quantity">0</span>
+                            <button type="button" class="quantity-btn increase-card" aria-label="Aumentar cantidad">+</button>
+                        </div>
+                        <button class="producto-btn add-to-cart-btn"><i class="fas fa-plus"></i> Añadir</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="producto-card" data-categoria="especiales">
+                <div class="producto-img-container">
+                    <img src="https://cloudfront-us-east-1.images.arcpublishing.com/infobae/JBECRDKR3FDXJIRI2AQOYFHY6I.jpg" alt="Caldo pancita de res" class="producto-img">
+                </div>
+                <div class="producto-info">
+                    <div class="producto-badge">Nuevo</div>
+                    <span class="producto-categoria">Caldos</span>
+                    <h3 class="producto-nombre">Pancita Chica</h3>
+                    <p class="producto-desc">Tradicional caldo de pancita de res, ideal para empezar el día con energía o recuperarse. Servido con tortillas hechas a mano, cebolla, cilantro y limón.</p>
+                    <div class="producto-footer">
+                        <span class="producto-precio">$70</span>
+                         <div class="quantity-controls" style="display: none;">
+                            <button type="button" class="quantity-btn decrease-card" aria-label="Disminuir cantidad">-</button>
+                            <span class="item-quantity">0</span>
+                            <button type="button" class="quantity-btn increase-card" aria-label="Aumentar cantidad">+</button>
+                        </div>
+                        <button class="producto-btn add-to-cart-btn"><i class="fas fa-plus"></i> Añadir</button>
                     </div>
                 </div>
             </div>
 
             <div class="producto-card" data-categoria="paquetes">
                 <div class="producto-img-container">
-                    <img src="https://scontent.fcvj3-1.fna.fbcdn.net/v/t39.30808-6/486610119_9479295578795601_5034770806320010576_n.jpg?_nc_cat=108&ccb=1-7&_nc_sid=3a1ebe&_nc_eui2=AeHtYcDb79i5XYx5owWI5BZQm_sGrFSuxTqb-wasVK7FOoI7Oc_CkJbkXvnk4Sw_7CA&_nc_ohc=HE9d2FDuj7sQ7kNvwHlmJVr&_nc_oc=AdkVkSW4HVnhqgajyrinDRkl6m5Yh45Z941h9p7RjIU0DVFofEWC08Fo6l_dfbpit0RVZeOF-s89CtJL_DDoBCng&_nc_zt=23&_nc_ht=scontent.fcvj3-1.fna&_nc_gid=Bh8UosvU4l0kHHhWJRZfYg&oh=00_AfHyruq17ErVxjsJ26UOQgxBV_HRDMHI_amehM9obV0JKg&oe=681B88A5" alt="parrillada cecina" class="producto-img">
+                    <img src="https://scontent.fcvj3-1.fna.fbcdn.net/v/t39.30808-6/486610119_9479295578795601_5034770806320010576_n.jpg?_nc_cat=108&ccb=1-7&_nc_sid=3a1ebe&_nc_eui2=AeHtYcDb79i5XYx5owWI5BZQm_sGrFSuxTqb-wasVK7FOoI7Oc_CkJbkXvnk4Sw_7CA&_nc_ohc=HE9d2FDuj7sQ7kNvwHlmJVr&_nc_oc=AdkVkSW4HVnhqgajyrinDRkl6m5Yh45Z941h9p7RjIU0DVFofEWC08Fo6l_dfpit0RVZeOF-s89CtJL_DDoBCng&_nc_zt=23&_nc_ht=scontent.fcvj3-1.fna&_nc_gid=Bh8UosvU4l0kHHhWJRZfYg&oh=00_AfHyruq17ErVxjsJ26UOQgxBV_HRDMHI_amehM9obV0JKg&oe=681B88A5" alt="Paquete Cecina 1kg" class="producto-img">
                 </div>
                 <div class="producto-info">
-                    <div class="producto-badge">Nuevo</div>
+                    <div class="producto-badge">Paquete</div>
                     <span class="producto-categoria">Paquetes</span>
-                    <h3 class="producto-nombre">Cecina</h3>
-                    <p class="producto-desc">¡Ideal para compartir! Nuestros paquetes incluyen 1kg de carne, 2 docenas de tortillas hechas a mano, salsa verde y roja, cebollas, nopales, pico de gallo y crema.</p>
+                    <h3 class="producto-nombre">Paquete Cecina (1kg)</h3>
+                    <p class="producto-desc">¡Ideal para compartir! 1kg de nuestra deliciosa cecina, 2 docenas de tortillas hechas a mano, salsas, cebollas, nopales, pico de gallo y crema.</p>
                     <div class="producto-footer">
                         <span class="producto-precio">$500</span>
-                        <button class="producto-btn"><i class="fas fa-plus"></i> Añadir</button>
+                         <div class="quantity-controls" style="display: none;">
+                            <button type="button" class="quantity-btn decrease-card" aria-label="Disminuir cantidad">-</button>
+                            <span class="item-quantity">0</span>
+                            <button type="button" class="quantity-btn increase-card" aria-label="Aumentar cantidad">+</button>
+                        </div>
+                        <button class="producto-btn add-to-cart-btn"><i class="fas fa-plus"></i> Añadir</button>
                     </div>
                 </div>
             </div>
@@ -1542,11 +1771,16 @@
                 </div>
                 <div class="producto-info">
                     <span class="producto-categoria">Paquetes</span>
-                    <h3 class="producto-nombre">Carne enchilada</h3>
-                    <p class="producto-desc">Lleva el sabor de "El Botudo" a tu evento o reunión. Paquetes generosos con 1kg de carne y todos los acompañamientos, incluye 2 docenas de tortillas hechas a mano, salsa verde y roja, cebollas, nopales, pico de gallo y crema!</p>
+                    <h3 class="producto-nombre">Paquete Carne Enchilada (1kg)</h3>
+                    <p class="producto-desc">Lleva el sabor de "El Botudo" a tu evento. 1kg de carne enchilada y todos los acompañamientos: 2 docenas de tortillas, salsas, cebollas, nopales, pico de gallo y crema.</p>
                     <div class="producto-footer">
                         <span class="producto-precio">$460</span>
-                        <button class="producto-btn"><i class="fas fa-plus"></i> Añadir</button>
+                         <div class="quantity-controls" style="display: none;">
+                            <button type="button" class="quantity-btn decrease-card" aria-label="Disminuir cantidad">-</button>
+                            <span class="item-quantity">0</span>
+                            <button type="button" class="quantity-btn increase-card" aria-label="Aumentar cantidad">+</button>
+                        </div>
+                        <button class="producto-btn add-to-cart-btn"><i class="fas fa-plus"></i> Añadir</button>
                     </div>
                 </div>
             </div>
@@ -1558,15 +1792,20 @@
                 <div class="producto-info">
                     <span class="producto-categoria">Paquetes</span>
                     <div class="producto-badge">Más vendido</div>
-                    <h3 class="producto-nombre">Longaniza</h3>
-                    <p class="producto-desc">La joya almendrada de "El Botudo". 1kg de nuestra longaniza con ese toque especial que la hace única, acompañada de todo lo que necesitas.</p>
+                    <h3 class="producto-nombre">Paquete Longaniza (1kg)</h3>
+                    <p class="producto-desc">La joya almendrada de "El Botudo". 1kg de nuestra longaniza con ese toque especial, acompañada de 2 docenas de tortillas, salsas, y más.</p>
                     <div class="producto-footer">
                         <span class="producto-precio">$350</span>
-                        <button class="producto-btn"><i class="fas fa-plus"></i> Añadir</button>
+                         <div class="quantity-controls" style="display: none;">
+                            <button type="button" class="quantity-btn decrease-card" aria-label="Disminuir cantidad">-</button>
+                            <span class="item-quantity">0</span>
+                            <button type="button" class="quantity-btn increase-card" aria-label="Aumentar cantidad">+</button>
+                        </div>
+                        <button class="producto-btn add-to-cart-btn"><i class="fas fa-plus"></i> Añadir</button>
                     </div>
                 </div>
             </div>
-            
+
             <div class="producto-card" data-categoria="paquetes">
                 <div class="producto-img-container">
                     <img src="https://i.ytimg.com/vi/0tb4hsBAL2Q/hq720.jpg?sqp=-oaymwEhCK4FEIIDSFryq4qpAxMIARUAAAAAGAElAADIQj0AgKJD&rs=AOn4CLANQ4LYhATTkyi1O6y-niuKhGkF7w" alt="cecina longaniza" class="producto-img">
@@ -1574,11 +1813,16 @@
                 <div class="producto-info">
                     <div class="producto-badge">Nuevo</div>
                     <span class="producto-categoria">Paquetes</span>
-                    <h3 class="producto-nombre">Cecina con Longaniza</h3>
-                    <p class="producto-desc">La mezcla perfecta de suavidad y sabor intenso. Disfruta 1kg de nuestro paquete mixto de cecina y longaniza con todos los acompañamientos.</p>
+                    <h3 class="producto-nombre">Paquete Cecina con Longaniza (1kg)</h3>
+                    <p class="producto-desc">La mezcla perfecta. Disfruta 1kg de nuestro paquete mixto (500g cecina, 500g longaniza) con todos los acompañamientos.</p>
                     <div class="producto-footer">
                         <span class="producto-precio">$440</span>
-                        <button class="producto-btn"><i class="fas fa-plus"></i> Añadir</button>
+                         <div class="quantity-controls" style="display: none;">
+                            <button type="button" class="quantity-btn decrease-card" aria-label="Disminuir cantidad">-</button>
+                            <span class="item-quantity">0</span>
+                            <button type="button" class="quantity-btn increase-card" aria-label="Aumentar cantidad">+</button>
+                        </div>
+                        <button class="producto-btn add-to-cart-btn"><i class="fas fa-plus"></i> Añadir</button>
                     </div>
                 </div>
             </div>
@@ -1590,11 +1834,16 @@
                 <div class="producto-info">
                     <span class="producto-categoria">Paquetes</span>
                     <div class="producto-badge">Más vendido</div>
-                    <h3 class="producto-nombre">Cecina con Carne Enchilada</h3>
-                    <p class="producto-desc">Suavidad y sabor audaz en un solo paquete. Disfruta 1kg de nuestro mixto de cecina y carne enchilada con todas las guarniciones.</p>
+                    <h3 class="producto-nombre">Paquete Cecina con Carne Enchilada (1kg)</h3>
+                    <p class="producto-desc">Suavidad y sabor audaz. 1kg de nuestro mixto (500g cecina, 500g carne enchilada) con todas las guarniciones.</p>
                     <div class="producto-footer">
                         <span class="producto-precio">$480</span>
-                        <button class="producto-btn"><i class="fas fa-plus"></i> Añadir</button>
+                         <div class="quantity-controls" style="display: none;">
+                            <button type="button" class="quantity-btn decrease-card" aria-label="Disminuir cantidad">-</button>
+                            <span class="item-quantity">0</span>
+                            <button type="button" class="quantity-btn increase-card" aria-label="Aumentar cantidad">+</button>
+                        </div>
+                        <button class="producto-btn add-to-cart-btn"><i class="fas fa-plus"></i> Añadir</button>
                     </div>
                 </div>
             </div>
@@ -1606,14 +1855,103 @@
                 <div class="producto-info">
                     <div class="producto-badge">Nuevo</div>
                     <span class="producto-categoria">Paquetes</span>
-                    <h3 class="producto-nombre">Mixto (Cecina, Carne Enchilada, Longaniza)</h3>
-                    <p class="producto-desc">¡La taquiza épica que lo tiene todo! 1kg con nuestra selección premium de cecina, carne enchilada y longaniza.</p>
+                    <h3 class="producto-nombre">Paquete Mixto (Cecina, Carne Enchilada, Longaniza - 1kg)</h3>
+                    <p class="producto-desc">¡La taquiza épica! 1kg con nuestra selección premium (aprox. 333g de cada carne) y todos los acompañamientos.</p>
                     <div class="producto-footer">
                         <span class="producto-precio">$460</span>
-                        <button class="producto-btn"><i class="fas fa-plus"></i> Añadir</button>
+                         <div class="quantity-controls" style="display: none;">
+                            <button type="button" class="quantity-btn decrease-card" aria-label="Disminuir cantidad">-</button>
+                            <span class="item-quantity">0</span>
+                            <button type="button" class="quantity-btn increase-card" aria-label="Aumentar cantidad">+</button>
+                        </div>
+                        <button class="producto-btn add-to-cart-btn"><i class="fas fa-plus"></i> Añadir</button>
                     </div>
                 </div>
             </div>
+
+            <div class="producto-card" data-categoria="peso" data-vendido-por-peso="true" data-precio-kg-cocida="500" data-precio-kg-cruda="350">
+                <div class="producto-img-container">
+                    <img src="https://media-cdn.tripadvisor.com/media/photo-s/0e/dd/7b/20/tacos-de-cecina.jpg" alt="Cecina por peso" class="producto-img">
+                </div>
+                <div class="producto-info">
+                    <div class="producto-badge">Por Peso</div>
+                    <span class="producto-categoria">Carne por Peso</span>
+                    <h3 class="producto-nombre">Cecina por Kilo/Gramo</h3>
+                    <p class="producto-desc">Pide la cantidad exacta de cecina que deseas. Se incluyen acompañamientos proporcionalmente (tortillas, salsas, etc. basado en 1kg).</p>
+                    <div class="producto-controles-peso">
+                        <label for="coccion-cecina-1" class="visually-hidden">Cocción:</label>
+                        <select class="coccion-select" id="coccion-cecina-1" aria-label="Tipo de cocción">
+                            <option value="cocida">Cocida</option>
+                            <option value="cruda">Cruda</option>
+                        </select>
+                        <input type="number" class="cantidad-peso" value="250" min="100" step="50" aria-label="Cantidad">
+                        <select class="unidad-peso" aria-label="Unidad">
+                            <option value="gr">gr</option>
+                            <option value="kg">kg</option>
+                        </select>
+                    </div>
+                    <div class="producto-footer">
+                        <span class="producto-precio-kg-display">Precio por Kilo (Cocida): $500</span>
+                        <button class="producto-btn producto-btn-peso"><i class="fas fa-plus"></i> Añadir</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="producto-card" data-categoria="peso" data-vendido-por-peso="true" data-precio-kg-cocida="460" data-precio-kg-cruda="320">
+                 <div class="producto-img-container">
+                     <img src="https://st.depositphotos.com/1257517/55962/i/950/depositphotos_559627492-stock-photo-tacos-cecina-enchilada-con-guacamole.jpg" alt="Carne Enchilada por peso" class="producto-img">
+                 </div>
+                 <div class="producto-info">
+                     <div class="producto-badge">Por Peso</div>
+                     <span class="producto-categoria">Carne por Peso</span>
+                     <h3 class="producto-nombre">Carne Enchilada por Kilo/Gramo</h3>
+                     <p class="producto-desc">Tu carne enchilada favorita, a tu medida. Acompañamientos proporcionales (basado en 1kg).</p>
+                     <div class="producto-controles-peso">
+                         <label for="coccion-enchilada-1" class="visually-hidden">Cocción:</label>
+                         <select class="coccion-select" id="coccion-enchilada-1" aria-label="Tipo de cocción">
+                             <option value="cocida">Cocida</option>
+                             <option value="cruda">Cruda</option>
+                         </select>
+                         <input type="number" class="cantidad-peso" value="250" min="100" step="50" aria-label="Cantidad">
+                         <select class="unidad-peso" aria-label="Unidad">
+                             <option value="gr">gr</option>
+                             <option value="kg">kg</option>
+                         </select>
+                     </div>
+                     <div class="producto-footer">
+                         <span class="producto-precio-kg-display">Precio por Kilo (Cocida): $460</span>
+                         <button class="producto-btn producto-btn-peso"><i class="fas fa-plus"></i> Añadir</button>
+                     </div>
+                 </div>
+             </div>
+
+            <div class="producto-card" data-categoria="peso" data-vendido-por-peso="true" data-precio-kg-cocida="350" data-precio-kg-cruda="250">
+                  <div class="producto-img-container">
+                      <img src="https://assets.unileversolutions.com/recipes-v2/252244.png" alt="Longaniza por peso" class="producto-img">
+                  </div>
+                  <div class="producto-info">
+                      <div class="producto-badge">Por Peso</div>
+                      <span class="producto-categoria">Carne por Peso</span>
+                      <h3 class="producto-nombre">Longaniza por Kilo/Gramo</h3>
+                      <p class="producto-desc">Longaniza almendrada por peso, ¡justo lo que necesitas! Acompañamientos proporcionales (basado en 1kg).</p>
+                      <div class="producto-controles-peso">
+                          <label for="coccion-longaniza-1" class="visually-hidden">Cocción:</label>
+                          <select class="coccion-select" id="coccion-longaniza-1" aria-label="Tipo de cocción">
+                              <option value="cocida">Cocida</option>
+                              <option value="cruda">Cruda</option>
+                          </select>
+                          <input type="number" class="cantidad-peso" value="250" min="100" step="50" aria-label="Cantidad">
+                          <select class="unidad-peso" aria-label="Unidad">
+                              <option value="gr">gr</option>
+                              <option value="kg">kg</option>
+                          </select>
+                      </div>
+                      <div class="producto-footer">
+                          <span class="producto-precio-kg-display">Precio por Kilo (Cocida): $350</span>
+                          <button class="producto-btn producto-btn-peso"><i class="fas fa-plus"></i> Añadir</button>
+                      </div>
+                  </div>
+              </div>
 
             <div class="producto-card" data-categoria="extras">
                 <div class="producto-badge">Nuevo</div>
@@ -1622,11 +1960,16 @@
                 </div>
                 <div class="producto-info">
                     <span class="producto-categoria">Extras</span>
-                    <h3 class="producto-nombre">Salsa Rerde</h3>
-                    <p class="producto-desc">Nuestra vibrante salsa verde casera. (Vaso de 1/4...)</p>
+                    <h3 class="producto-nombre">Salsa Verde (1/4 L)</h3>
+                    <p class="producto-desc">Nuestra vibrante salsa verde casera, con el toque justo de picante y frescura. (Vaso de 1/4 litro).</p>
                     <div class="producto-footer">
                         <span class="producto-precio">$20</span>
-                        <button class="producto-btn"><i class="fas fa-plus"></i> Añadir</button>
+                         <div class="quantity-controls" style="display: none;">
+                            <button type="button" class="quantity-btn decrease-card" aria-label="Disminuir cantidad">-</button>
+                            <span class="item-quantity">0</span>
+                            <button type="button" class="quantity-btn increase-card" aria-label="Aumentar cantidad">+</button>
+                        </div>
+                        <button class="producto-btn add-to-cart-btn"><i class="fas fa-plus"></i> Añadir</button>
                     </div>
                 </div>
             </div>
@@ -1637,27 +1980,36 @@
                 </div>
                 <div class="producto-info">
                     <span class="producto-categoria">Extras</span>
-                    <h3 class="producto-nombre">Salsa Roja</h3>
-                    <p class="producto-desc">La salsa roja con el toque picante perfecto. (Vaso de 1/4...)</p>
+                    <h3 class="producto-nombre">Salsa Roja (1/4 L)</h3>
+                    <p class="producto-desc">La salsa roja con el toque picante perfecto para tus tacos. (Vaso de 1/4 litro).</p>
                     <div class="producto-footer">
                         <span class="producto-precio">$20</span>
-                        <button class="producto-btn"><i class="fas fa-plus"></i> Añadir</button>
+                         <div class="quantity-controls" style="display: none;">
+                            <button type="button" class="quantity-btn decrease-card" aria-label="Disminuir cantidad">-</button>
+                            <span class="item-quantity">0</span>
+                            <button type="button" class="quantity-btn increase-card" aria-label="Aumentar cantidad">+</button>
+                        </div>
+                        <button class="producto-btn add-to-cart-btn"><i class="fas fa-plus"></i> Añadir</button>
                     </div>
                 </div>
             </div>
 
             <div class="producto-card" data-categoria="extras">
-                <div class="producto-badge">Nuevo</div>
                 <div class="producto-img-container">
                     <img src="https://imag.bonviveur.com/pico-de-gallo.jpg" alt="jitomate pico de gallo" class="producto-img">
                 </div>
                 <div class="producto-info">
                     <span class="producto-categoria">Extras</span>
-                    <h3 class="producto-nombre">Pico de Gallo</h3>
-                    <p class="producto-desc">Fresco y lleno de color. Nuestro pico de gallo recién hecho. (Vaso de 1/4...)</p>
+                    <h3 class="producto-nombre">Pico de Gallo (1/4 L)</h3>
+                    <p class="producto-desc">Fresco y lleno de color. Nuestro pico de gallo recién hecho con jitomate, cebolla y cilantro. (Vaso de 1/4 litro).</p>
                     <div class="producto-footer">
                         <span class="producto-precio">$25</span>
-                        <button class="producto-btn"><i class="fas fa-plus"></i> Añadir</button>
+                         <div class="quantity-controls" style="display: none;">
+                            <button type="button" class="quantity-btn decrease-card" aria-label="Disminuir cantidad">-</button>
+                            <span class="item-quantity">0</span>
+                            <button type="button" class="quantity-btn increase-card" aria-label="Aumentar cantidad">+</button>
+                        </div>
+                        <button class="producto-btn add-to-cart-btn"><i class="fas fa-plus"></i> Añadir</button>
                     </div>
                 </div>
             </div>
@@ -1669,27 +2021,36 @@
                 </div>
                 <div class="producto-info">
                     <span class="producto-categoria">Extras</span>
-                    <h3 class="producto-nombre">Nopales con Cebollas</h3>
-                    <p class="producto-desc">Tiernos nopales asados con cebolla. El acompañamiento ideal. (Vaso de 1/4...)</p>
+                    <h3 class="producto-nombre">Nopales con Cebollas (1/4 L)</h3>
+                    <p class="producto-desc">Tiernos nopales asados con cebolla cambray. El acompañamiento ideal. (Vaso de 1/4 litro).</p>
                     <div class="producto-footer">
                         <span class="producto-precio">$25</span>
-                        <button class="producto-btn"><i class="fas fa-plus"></i> Añadir</button>
+                         <div class="quantity-controls" style="display: none;">
+                            <button type="button" class="quantity-btn decrease-card" aria-label="Disminuir cantidad">-</button>
+                            <span class="item-quantity">0</span>
+                            <button type="button" class="quantity-btn increase-card" aria-label="Aumentar cantidad">+</button>
+                        </div>
+                        <button class="producto-btn add-to-cart-btn"><i class="fas fa-plus"></i> Añadir</button>
                     </div>
                 </div>
             </div>
 
             <div class="producto-card" data-categoria="extras">
-                <div class="producto-badge">Nuevo</div>
                 <div class="producto-img-container">
                     <img src="https://es.giallozafferano.com/images/3-376/Guacamole_650x433_wm.jpg" alt="guacamole" class="producto-img">
                 </div>
                 <div class="producto-info">
                     <span class="producto-categoria">Extras</span>
-                    <h3 class="producto-nombre">Guacamole</h3>
-                    <p class="producto-desc">Cremoso y lleno de sabor. Agrega nuestro guacamole a tu pedido. (Vaso de 1/4...)</p>
+                    <h3 class="producto-nombre">Guacamole (1/4 L)</h3>
+                    <p class="producto-desc">Cremoso y lleno de sabor. Agrega nuestro guacamole a tu pedido. (Vaso de 1/4 litro).</p>
                     <div class="producto-footer">
                         <span class="producto-precio">$40</span>
-                        <button class="producto-btn"><i class="fas fa-plus"></i> Añadir</button>
+                         <div class="quantity-controls" style="display: none;">
+                            <button type="button" class="quantity-btn decrease-card" aria-label="Disminuir cantidad">-</button>
+                            <span class="item-quantity">0</span>
+                            <button type="button" class="quantity-btn increase-card" aria-label="Aumentar cantidad">+</button>
+                        </div>
+                        <button class="producto-btn add-to-cart-btn"><i class="fas fa-plus"></i> Añadir</button>
                     </div>
                 </div>
             </div>
@@ -1700,11 +2061,16 @@
                 </div>
                 <div class="producto-info">
                     <span class="producto-categoria">Extras</span>
-                    <h3 class="producto-nombre">Crema</h3>
-                    <p class="producto-desc">La crema perfecta para complementar tus tacos. (1 LT...)</p>
+                    <h3 class="producto-nombre">Crema (1 L)</h3>
+                    <p class="producto-desc">La crema perfecta para complementar tus tacos y platillos. (1 litro).</p>
                     <div class="producto-footer">
-                        <span class="producto-precio">$80</span>
-                        <button class="producto-btn"><i class="fas fa-plus"></i> Añadir</button>
+                        <span class="producto-precio">$130</span>
+                         <div class="quantity-controls" style="display: none;">
+                            <button type="button" class="quantity-btn decrease-card" aria-label="Disminuir cantidad">-</button>
+                            <span class="item-quantity">0</span>
+                            <button type="button" class="quantity-btn increase-card" aria-label="Aumentar cantidad">+</button>
+                        </div>
+                        <button class="producto-btn add-to-cart-btn"><i class="fas fa-plus"></i> Añadir</button>
                     </div>
                 </div>
             </div>
@@ -1716,27 +2082,37 @@
                 <div class="producto-info">
                     <span class="producto-categoria">Extras</span>
                     <div class="producto-badge">Más vendido</div>
-                    <h3 class="producto-nombre">Orden de Nopales</h3>
-                    <p class="producto-desc">Disfruta una porción extra de nuestros deliciosos nopales asados.</p>
+                    <h3 class="producto-nombre">Orden de Nopales Asados</h3>
+                    <p class="producto-desc">Disfruta una porción generosa de nuestros deliciosos nopales asados con cebolla.</p>
                     <div class="producto-footer">
                         <span class="producto-precio">$20</span>
-                        <button class="producto-btn"><i class="fas fa-plus"></i> Añadir</button>
+                         <div class="quantity-controls" style="display: none;">
+                            <button type="button" class="quantity-btn decrease-card" aria-label="Disminuir cantidad">-</button>
+                            <span class="item-quantity">0</span>
+                            <button type="button" class="quantity-btn increase-card" aria-label="Aumentar cantidad">+</button>
+                        </div>
+                        <button class="producto-btn add-to-cart-btn"><i class="fas fa-plus"></i> Añadir</button>
                     </div>
                 </div>
             </div>
 
             <div class="producto-card" data-categoria="extras">
-                <div class="producto-badge">Nuevo</div>
                 <div class="producto-img-container">
                     <img src="https://delachinampa.mx/wp-content/uploads/2022/03/tortilla-blanca-hecha-a-mano.jpg" alt="Tortillas a mano" class="producto-img">
                 </div>
                 <div class="producto-info">
                     <span class="producto-categoria">Extras</span>
-                    <h3 class="producto-nombre">Tortillas</h3>
-                    <p class="producto-desc">Suaves y recién hechas. La base perfecta para tus tacos. (1 docena...)</p>
+                    <div class="producto-badge">Nuevo</div>
+                    <h3 class="producto-nombre">Tortillas Hechas a Mano (Docena)</h3>
+                    <p class="producto-desc">Suaves y recién hechas. La base perfecta para tus tacos. (1 docena).</p>
                     <div class="producto-footer">
                         <span class="producto-precio">$25</span>
-                        <button class="producto-btn"><i class="fas fa-plus"></i> Añadir</button>
+                         <div class="quantity-controls" style="display: none;">
+                            <button type="button" class="quantity-btn decrease-card" aria-label="Disminuir cantidad">-</button>
+                            <span class="item-quantity">0</span>
+                            <button type="button" class="quantity-btn increase-card" aria-label="Aumentar cantidad">+</button>
+                        </div>
+                        <button class="producto-btn add-to-cart-btn"><i class="fas fa-plus"></i> Añadir</button>
                     </div>
                 </div>
             </div>
@@ -1748,11 +2124,16 @@
                 <div class="producto-info">
                     <span class="producto-categoria">Bebidas</span>
                     <div class="producto-badge">Más vendido</div>
-                    <h3 class="producto-nombre">Agua de sabor de litro</h3>
-                    <p class="producto-desc">Refresca tu paladar con nuestras aguas frescas del día.</p>
+                    <h3 class="producto-nombre">Agua de Sabor (1 Litro)</h3>
+                    <p class="producto-desc">Refresca tu paladar con nuestras aguas frescas del día. Pregunta por los sabores disponibles.</p>
                     <div class="producto-footer">
                         <span class="producto-precio">$30</span>
-                        <button class="producto-btn"><i class="fas fa-plus"></i> Añadir</button>
+                         <div class="quantity-controls" style="display: none;">
+                            <button type="button" class="quantity-btn decrease-card" aria-label="Disminuir cantidad">-</button>
+                            <span class="item-quantity">0</span>
+                            <button type="button" class="quantity-btn increase-card" aria-label="Aumentar cantidad">+</button>
+                        </div>
+                        <button class="producto-btn add-to-cart-btn"><i class="fas fa-plus"></i> Añadir</button>
                     </div>
                 </div>
             </div>
@@ -1763,11 +2144,16 @@
                 </div>
                 <div class="producto-info">
                     <span class="producto-categoria">Bebidas</span>
-                    <h3 class="producto-nombre">Agua de sabor de medio litro</h3>
-                    <p class="producto-desc">Refresca tu paladar con nuestras aguas frescas del día.</p>
+                    <h3 class="producto-nombre">Agua de Sabor (1/2 Litro)</h3>
+                    <p class="producto-desc">La porción perfecta de agua fresca para acompañar tu comida.</p>
                     <div class="producto-footer">
                         <span class="producto-precio">$18</span>
-                        <button class="producto-btn"><i class="fas fa-plus"></i> Añadir</button>
+                         <div class="quantity-controls" style="display: none;">
+                            <button type="button" class="quantity-btn decrease-card" aria-label="Disminuir cantidad">-</button>
+                            <span class="item-quantity">0</span>
+                            <button type="button" class="quantity-btn increase-card" aria-label="Aumentar cantidad">+</button>
+                        </div>
+                        <button class="producto-btn add-to-cart-btn"><i class="fas fa-plus"></i> Añadir</button>
                     </div>
                 </div>
             </div>
@@ -1779,11 +2165,16 @@
                 <div class="producto-info">
                     <span class="producto-categoria">Bebidas</span>
                     <div class="producto-badge">Más vendido</div>
-                    <h3 class="producto-nombre">Coca-Cola de vidrio</h3>
-                    <p class="producto-desc">La clásica Coca-Cola bien fría para acompañar tus alimentos (500ml).</p>
+                    <h3 class="producto-nombre">Coca-Cola de Vidrio (500ml)</h3>
+                    <p class="producto-desc">La clásica Coca-Cola en envase de vidrio, ¡bien fría!</p>
                     <div class="producto-footer">
-                        <span class="producto-precio">$26</span>
-                        <button class="producto-btn"><i class="fas fa-plus"></i> Añadir</button>
+                        <span class="producto-precio">$25</span>
+                         <div class="quantity-controls" style="display: none;">
+                            <button type="button" class="quantity-btn decrease-card" aria-label="Disminuir cantidad">-</button>
+                            <span class="item-quantity">0</span>
+                            <button type="button" class="quantity-btn increase-card" aria-label="Aumentar cantidad">+</button>
+                        </div>
+                        <button class="producto-btn add-to-cart-btn"><i class="fas fa-plus"></i> Añadir</button>
                     </div>
                 </div>
             </div>
@@ -1795,11 +2186,16 @@
                 <div class="producto-info">
                     <span class="producto-categoria">Bebidas</span>
                     <div class="producto-badge">Más vendido</div>
-                    <h3 class="producto-nombre">Coca-Cola de 600ml</h3>
+                    <h3 class="producto-nombre">Coca-Cola (600ml)</h3>
                     <p class="producto-desc">La clásica Coca-Cola bien fría para acompañar tus alimentos.</p>
                     <div class="producto-footer">
                         <span class="producto-precio">$30</span>
-                        <button class="producto-btn"><i class="fas fa-plus"></i> Añadir</button>
+                         <div class="quantity-controls" style="display: none;">
+                            <button type="button" class="quantity-btn decrease-card" aria-label="Disminuir cantidad">-</button>
+                            <span class="item-quantity">0</span>
+                            <button type="button" class="quantity-btn increase-card" aria-label="Aumentar cantidad">+</button>
+                        </div>
+                        <button class="producto-btn add-to-cart-btn"><i class="fas fa-plus"></i> Añadir</button>
                     </div>
                 </div>
             </div>
@@ -1810,11 +2206,16 @@
                 </div>
                 <div class="producto-info">
                     <span class="producto-categoria">Bebidas</span>
-                    <h3 class="producto-nombre">Cafe de olla</h3>
+                    <h3 class="producto-nombre">Café de Olla</h3>
                     <p class="producto-desc">El toque dulce y especiado. Disfruta nuestro tradicional café de olla.</p>
                     <div class="producto-footer">
                         <span class="producto-precio">$20</span>
-                        <button class="producto-btn"><i class="fas fa-plus"></i> Añadir</button>
+                         <div class="quantity-controls" style="display: none;">
+                            <button type="button" class="quantity-btn decrease-card" aria-label="Disminuir cantidad">-</button>
+                            <span class="item-quantity">0</span>
+                            <button type="button" class="quantity-btn increase-card" aria-label="Aumentar cantidad">+</button>
+                        </div>
+                        <button class="producto-btn add-to-cart-btn"><i class="fas fa-plus"></i> Añadir</button>
                     </div>
                 </div>
             </div>
@@ -1825,11 +2226,16 @@
                 </div>
                 <div class="producto-info">
                     <span class="producto-categoria">Bebidas</span>
-                    <h3 class="producto-nombre">Refresco de Manzana</h3>
-                    <p class="producto-desc">El burbujeante sabor manzana que refresca.</p>
+                    <h3 class="producto-nombre">Refresco de Manzana (Sidral Mundet)</h3>
+                    <p class="producto-desc">El burbujeante sabor manzana que refresca (600ml).</p>
                     <div class="producto-footer">
                         <span class="producto-precio">$25</span>
-                        <button class="producto-btn"><i class="fas fa-plus"></i> Añadir</button>
+                         <div class="quantity-controls" style="display: none;">
+                            <button type="button" class="quantity-btn decrease-card" aria-label="Disminuir cantidad">-</button>
+                            <span class="item-quantity">0</span>
+                            <button type="button" class="quantity-btn increase-card" aria-label="Aumentar cantidad">+</button>
+                        </div>
+                        <button class="producto-btn add-to-cart-btn"><i class="fas fa-plus"></i> Añadir</button>
                     </div>
                 </div>
             </div>
@@ -1840,11 +2246,16 @@
                 </div>
                 <div class="producto-info">
                     <span class="producto-categoria">Bebidas</span>
-                    <h3 class="producto-nombre">Refresco Sprite</h3>
-                    <p class="producto-desc">El burbujeante sabor Sprite que nos llena de alegría.</p>
+                    <h3 class="producto-nombre">Refresco Sprite (600ml)</h3>
+                    <p class="producto-desc">El burbujeante sabor lima-limón de Sprite que nos llena de alegría.</p>
                     <div class="producto-footer">
                         <span class="producto-precio">$25</span>
-                        <button class="producto-btn"><i class="fas fa-plus"></i> Añadir</button>
+                         <div class="quantity-controls" style="display: none;">
+                            <button type="button" class="quantity-btn decrease-card" aria-label="Disminuir cantidad">-</button>
+                            <span class="item-quantity">0</span>
+                            <button type="button" class="quantity-btn increase-card" aria-label="Aumentar cantidad">+</button>
+                        </div>
+                        <button class="producto-btn add-to-cart-btn"><i class="fas fa-plus"></i> Añadir</button>
                     </div>
                 </div>
             </div>
@@ -1860,7 +2271,12 @@
                     <p class="producto-desc">El final dulce perfecto. Suave y cremoso flan napolitano casero.</p>
                     <div class="producto-footer">
                         <span class="producto-precio">$30</span>
-                        <button class="producto-btn"><i class="fas fa-plus"></i> Añadir</button>
+                         <div class="quantity-controls" style="display: none;">
+                            <button type="button" class="quantity-btn decrease-card" aria-label="Disminuir cantidad">-</button>
+                            <span class="item-quantity">0</span>
+                            <button type="button" class="quantity-btn increase-card" aria-label="Aumentar cantidad">+</button>
+                        </div>
+                        <button class="producto-btn add-to-cart-btn"><i class="fas fa-plus"></i> Añadir</button>
                     </div>
                 </div>
             </div>
@@ -1872,11 +2288,16 @@
                 <div class="producto-info">
                     <span class="producto-categoria">Postres</span>
                     <div class="producto-badge">Nuevo</div>
-                    <h3 class="producto-nombre">Helado Napolitano</h3>
-                    <p class="producto-desc">Un clásico refrescante para terminar tu festín.</p>
+                    <h3 class="producto-nombre">Helado Napolitano (Vaso)</h3>
+                    <p class="producto-desc">Un clásico refrescante para terminar tu festín. Combinación de fresa, vainilla y chocolate.</p>
                     <div class="producto-footer">
                         <span class="producto-precio">$30</span>
-                        <button class="producto-btn"><i class="fas fa-plus"></i> Añadir</button>
+                         <div class="quantity-controls" style="display: none;">
+                            <button type="button" class="quantity-btn decrease-card" aria-label="Disminuir cantidad">-</button>
+                            <span class="item-quantity">0</span>
+                            <button type="button" class="quantity-btn increase-card" aria-label="Aumentar cantidad">+</button>
+                        </div>
+                        <button class="producto-btn add-to-cart-btn"><i class="fas fa-plus"></i> Añadir</button>
                     </div>
                 </div>
             </div>
@@ -1968,7 +2389,6 @@
                 <ul class="footer-links">
                     <li class="footer-link"><a href="#inicio">Inicio</a></li>
                     <li class="footer-link"><a href="#catalogo">Menú</a></li>
-                    <li class="footer-link"><a href="#nosotros">Sobre Nosotros</a></li>
                     <li class="footer-link"><a href="#contacto">Contacto</a></li>
                     <li class="footer-link"><a href="#catalogo">Haz tu pedido</a></li>
                 </ul>
@@ -1989,7 +2409,6 @@
                     <p><i class="fas fa-phone-alt"></i> (52) 777 514 3110</p>
                     <p><i class="fas fa-phone-alt"></i> (52) 777 207 3675</p>
                     <p><i class="fas fa-phone-alt"></i> (52) 777 212 0467</p>
-                    <!--<p><i class="fas fa-envelope"></i> hola@elautentico.com</p>-->
                 </div>
             </div>
         </div>
@@ -2000,8 +2419,7 @@
     </footer>
 
      <div class="whatsapp-container">
-         <span class="whatsapp-label">Enviar Pedido</span>
-        <div class="whatsapp-float" id="whatsappButton" aria-label="Haz tu pedido por WhatsApp">
+         <span class="whatsapp-label" id="whatsappLabel">Enviar Pedido</span> <div class="whatsapp-float" id="whatsappButton" aria-label="Haz tu pedido por WhatsApp">
             <i class="fab fa-whatsapp"></i>
         </div>
     </div>
@@ -2077,14 +2495,10 @@
                 }
             });
         }
-
-        // Event listener for scroll to trigger animations
         window.addEventListener('scroll', animateOnScroll);
-        // Initial check on page load
         document.addEventListener('DOMContentLoaded', animateOnScroll);
 
 
-        // Filtrado de productos
         document.addEventListener('DOMContentLoaded', function() {
             const filtroBtns = document.querySelectorAll('.filtro-btn');
             const productoCards = document.querySelectorAll('.producto-card');
@@ -2093,12 +2507,10 @@
                 btn.addEventListener('click', function() {
                     filtroBtns.forEach(b => b.classList.remove('active'));
                     this.classList.add('active');
-
                     const categoria = this.dataset.categoria;
-
                     productoCards.forEach(card => {
                         if (categoria === 'todo' || card.dataset.categoria === categoria) {
-                             card.style.display = 'block';
+                             card.style.display = 'flex'; // Use flex for cards
                              setTimeout(() => {
                                  card.style.opacity = 1;
                                  card.style.transform = 'translateY(0)';
@@ -2114,60 +2526,44 @@
                 });
             });
 
-            // Animación de scroll suave y cerrar menú móvil al hacer clic en un enlace
-        // Función personalizada para scroll suave con duración controlada
-        function smoothScrollTo(endY, duration) {
-            const startY = window.scrollY;
-            const distanceY = endY - startY;
-            const startTime = performance.now();
-
-            function step(currentTime) {
-                const elapsed = currentTime - startTime;
-                const progress = Math.min(elapsed / duration, 1); // Asegura que no exceda 1
-                 // Usamos una función de temporización eased (ease-in-out) para un movimiento más natural
-                const easeInOutQuad = (t) => t < 0.5 ? 2 * t * t : -1 + (4 - 2 * t) * t;
-
-                window.scrollTo(0, startY + distanceY * easeInOutQuad(progress));
-
-                if (elapsed < duration) {
-                    requestAnimationFrame(step);
-                }
-            }
-
-            requestAnimationFrame(step);
-        }
-
-
-        // Animación de scroll suave y cerrar menú móvil al hacer clic en un enlace
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function(e) {
-                e.preventDefault();
-
-                const targetId = this.getAttribute('href');
-                const targetElement = document.querySelector(targetId);
-                const offset = 80; // Offset para el header fijo
-
-                if (targetElement) {
-                    const targetPosition = targetElement.offsetTop - offset;
-                    const duration = 5500; // <-- Duración del scroll en milisegundos (800ms = 0.8 segundos). ¡Puedes ajustar este valor!
-
-                    smoothScrollTo(targetPosition, duration); // Usamos nuestra función personalizada
-
-                     // Close mobile menu if open
-                    const navMenu = document.getElementById('navMenu');
-                    const menuOverlay = document.getElementById('menuOverlay');
-                    if (navMenu.classList.contains('open')) {
-                        navMenu.classList.remove('open');
-                        menuOverlay.classList.remove('active');
-                        document.body.style.overflow = 'auto'; // Restore scroll
+            function smoothScrollTo(endY, duration) {
+                const startY = window.scrollY;
+                const distanceY = endY - startY;
+                const startTime = performance.now();
+                function step(currentTime) {
+                    const elapsed = currentTime - startTime;
+                    const progress = Math.min(elapsed / duration, 1);
+                    const easeInOutQuad = (t) => t < 0.5 ? 2 * t * t : -1 + (4 - 2 * t) * t;
+                    window.scrollTo(0, startY + distanceY * easeInOutQuad(progress));
+                    if (elapsed < duration) {
+                        requestAnimationFrame(step);
                     }
                 }
+                requestAnimationFrame(step);
+            }
+
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    const targetId = this.getAttribute('href');
+                    const targetElement = document.querySelector(targetId);
+                    const offset = 80; // Ajusta este valor según la altura de tu barra de navegación fija
+                    if (targetElement) {
+                        const targetPosition = targetElement.getBoundingClientRect().top + window.pageYOffset - offset;
+                         const duration = 5500; // Duración del scroll en milisegundos
+                         smoothScrollTo(targetPosition, duration); // Descomentado para usar scroll suave
+                        const navMenu = document.getElementById('navMenu');
+                        const menuOverlay = document.getElementById('menuOverlay');
+                        if (navMenu.classList.contains('open')) {
+                            navMenu.classList.remove('open');
+                            menuOverlay.classList.remove('active');
+                            document.body.style.overflow = 'auto';
+                        }
+                    }
+                });
             });
         });
-        });
 
-
-        // Mobile Navigation Toggle
         const navToggle = document.getElementById('navToggle');
         const navMenu = document.getElementById('navMenu');
         const menuOverlay = document.getElementById('menuOverlay');
@@ -2175,40 +2571,41 @@
         function toggleMenu() {
             navMenu.classList.toggle('open');
             menuOverlay.classList.toggle('active');
-             // Prevent body scroll when menu is open
             if (navMenu.classList.contains('open')) {
                 document.body.style.overflow = 'hidden';
             } else {
                 document.body.style.overflow = 'auto';
             }
         }
-
         navToggle.addEventListener('click', toggleMenu);
-        menuOverlay.addEventListener('click', toggleMenu); // Close menu when clicking overlay
+        menuOverlay.addEventListener('click', toggleMenu);
 
-
-        // Función para mostrar notificación
         function showNotification(message, type = 'success') {
             const notification = document.getElementById('notification');
             const notificationMessage = document.getElementById('notification-message');
+            const iconElement = notification.querySelector('i');
 
             notification.classList.remove('success', 'error');
-
             notification.classList.add(type);
+
+            if (type === 'success') {
+                iconElement.className = 'fas fa-check-circle';
+            } else if (type === 'error') {
+                iconElement.className = 'fas fa-times-circle';
+            }
+
+
             notificationMessage.textContent = message;
-
-             notification.offsetWidth; // Trigger reflow
-
+            notification.offsetWidth; // Trigger reflow
             notification.classList.add('show');
-
             setTimeout(() => {
                 notification.classList.remove('show');
-            }, 2000);
+            }, 3000); // Aumentado a 3 segundos
         }
 
-        // Variables globales
         let cart = [];
         const whatsappButton = document.getElementById('whatsappButton');
+        const whatsappLabel = document.getElementById('whatsappLabel');
         const whatsappModal = document.getElementById('whatsappModal');
         const closeWhatsapp = document.getElementById('closeWhatsapp');
         const whatsappForm = document.getElementById('whatsappForm');
@@ -2216,348 +2613,641 @@
         const tableField = document.getElementById('tableField');
         const orderItemsContainer = document.getElementById('whatsapp-order-items');
 
-        // Sanitizar inputs
         const sanitizeInput = (str) => {
-            return str.replace(/[^\w\sáéíóúñÁÉÍÓÚÑ@.,-]/gi, '').substring(0, 200);
+            if (typeof str !== 'string') return '';
+            return str.replace(/[<>"`&';=\/\\]/gi, '').substring(0, 250); // Ajustado límite y caracteres
         };
 
-        // Inicializar carrito desde localStorage
         function initCart() {
             const savedCart = localStorage.getItem('taqueriaCart');
             if (savedCart) {
                 try {
                     cart = JSON.parse(savedCart);
-                    updateWhatsappOrderSummary();
                 } catch (e) {
                     console.error("Error parsing cart from localStorage:", e);
                     cart = [];
+                    localStorage.removeItem('taqueriaCart'); // Limpiar carrito corrupto
                 }
             }
+            updateWhatsappOrderSummary();
+            updateProductCardQuantities(); // <--- Actualizar la vista de las tarjetas al cargar
         }
 
-        // Mostrar/ocultar campo de mesa
         deliveryMethod.addEventListener('change', function() {
-            tableField.style.display = this.value === 'Mesa' ? 'block' : 'none';
             const tableInput = document.getElementById('whatsapp-table');
             if (this.value === 'Mesa') {
+                 tableField.style.display = 'block';
                  tableInput.setAttribute('required', 'required');
                  tableInput.focus();
             } else {
+                 tableField.style.display = 'none';
                  tableInput.removeAttribute('required');
+                 tableInput.value = ''; // Limpiar valor si no es para mesa
             }
         });
 
-        // Abrir modal
-        whatsappButton.addEventListener('click', function() {
-            console.log("WhatsApp button clicked!"); // Debugging line
-            if (cart.length === 0) {
-                showNotification('Agrega productos al pedido primero', 'error');
-                return;
-            }
-            whatsappModal.style.display = 'flex';
-            setTimeout(() => whatsappModal.classList.add('show'), 10);
-        });
+         function openWhatsappModal() {
+             if (cart.length === 0) {
+                 showNotification('Agrega productos al pedido primero', 'error');
+                 return;
+             }
+             whatsappModal.style.display = 'flex';
+             setTimeout(() => whatsappModal.classList.add('show'), 10);
+             document.body.style.overflow = 'hidden'; // Evitar scroll del fondo
+         }
 
-        // Cerrar modal
+         whatsappButton.addEventListener('click', openWhatsappModal);
+         whatsappLabel.addEventListener('click', openWhatsappModal);
+
+
         function closeModal() {
             whatsappModal.classList.remove('show');
-            setTimeout(() => whatsappModal.style.display = 'none', 300);
+            setTimeout(() => {
+                whatsappModal.style.display = 'none';
+                document.body.style.overflow = 'auto'; // Restaurar scroll del fondo
+            }, 300);
         }
         closeWhatsapp.addEventListener('click', closeModal);
-        whatsappModal.addEventListener('click', (e) => e.target === whatsappModal && closeModal());
+        whatsappModal.addEventListener('click', (e) => {
+            if (e.target === whatsappModal) {
+                closeModal();
+            }
+        });
+
+        // --- FUNCIONES Y MODIFICACIONES PARA CONTROLES EN TARJETA ---
+
+        // Función para actualizar la UI de las tarjetas (mostrar/ocultar controles y cantidad)
+        function updateProductCardQuantities() {
+             // Seleccionar solo las tarjetas que NO se venden por peso
+             document.querySelectorAll('.producto-card:not([data-vendido-por-peso="true"])').forEach(card => {
+                 const productName = card.querySelector('.producto-nombre').textContent;
+                 const addButton = card.querySelector('.add-to-cart-btn');
+                 const quantityControls = card.querySelector('.quantity-controls');
+                 const quantitySpan = card.querySelector('.item-quantity');
+
+                 // Buscar el item en el carrito por nombre (solo para items no por peso)
+                 const itemInCart = cart.find(item => item.name === productName && !item.isByWeight);
+
+                 if (itemInCart && itemInCart.quantity > 0) {
+                     // Si el producto está en el carrito y tiene cantidad > 0, mostrar controles y cantidad
+                     if (addButton) addButton.style.display = 'none';
+                     if (quantityControls) quantityControls.style.display = 'flex';
+                     if (quantitySpan) quantitySpan.textContent = itemInCart.quantity;
+                 } else {
+                     // Si no está en el carrito o cantidad es 0, mostrar botón "Añadir"
+                     if (addButton) addButton.style.display = 'flex'; // O 'inline-block' según tu diseño original
+                     if (quantityControls) quantityControls.style.display = 'none';
+                     if (quantitySpan) quantitySpan.textContent = '0'; // Resetear a 0 por si acaso
+                 }
+             });
+        }
+
+        // Función para manejar los clics en los botones +/- de la tarjeta
+        function handleCardQuantityChange(button, change) {
+             const card = button.closest('.producto-card');
+             const productName = card.querySelector('.producto-nombre').textContent;
+             const productPriceText = card.querySelector('.producto-precio').textContent;
+             const productPrice = parseFloat(productPriceText.replace('$', ''));
+             const quantitySpan = card.querySelector('.item-quantity');
+             const addButton = card.querySelector('.add-to-cart-btn');
+             const quantityControls = card.querySelector('.quantity-controls');
+
+             let itemInCartIndex = cart.findIndex(item => item.name === productName && !item.isByWeight);
+
+             if (itemInCartIndex === -1 && change > 0) {
+                 // Si no está en el carrito y se presiona '+', añadir con cantidad 1
+                  const product = {
+                     id: Date.now() + Math.random().toString(36).substr(2, 9), // ID único
+                     name: productName,
+                     unitPrice: productPrice, // Guardar precio unitario
+                     price: productPrice,     // Precio total inicial del item
+                     quantity: 1,
+                     isByWeight: false
+                 };
+                 cart.push(product);
+                 showNotification(`${productName} agregado al pedido`);
+                 // Encontrar el índice del item recién añadido
+                 itemInCartIndex = cart.length - 1;
+
+             } else if (itemInCartIndex !== -1) {
+                 // Si el item ya está en el carrito
+                 cart[itemInCartIndex].quantity += change;
+
+                 if (cart[itemInCartIndex].quantity <= 0) {
+                     // Si la cantidad es 0 o menos, eliminar del carrito
+                     const removedItem = cart.splice(itemInCartIndex, 1)[0];
+                     showNotification(`${!removedItem.isByWeight && removedItem.quantity > 1 ? `(x${removedItem.quantity}) ` : ''}${removedItem.name} eliminado`, 'error');
+
+                     // Restaurar botón "Añadir" en la tarjeta
+                     if (addButton) addButton.style.display = 'flex'; // O 'inline-block'
+                     if (quantityControls) quantityControls.style.display = 'none';
+                      if (quantitySpan) quantitySpan.textContent = '0'; // Resetear a 0
+
+                 } else {
+                     // Si la cantidad es mayor a 0, actualizar precio y mostrar cantidad
+                     cart[itemInCartIndex].price = cart[itemInCartIndex].unitPrice * cart[itemInCartIndex].quantity; // Recalcular precio del item
+                     if (quantitySpan) quantitySpan.textContent = cart[itemInCartIndex].quantity;
+                     showNotification(`${productName} - Cantidad: ${cart[itemInCartIndex].quantity}`);
+                 }
+             } else {
+                  // Si no está en el carrito y se presiona '-', no hacer nada (ya que no hay item para disminuir)
+                  return;
+             }
+
+             updateCartAndStorage(); // Actualizar localStorage y resumen del modal
+             animateButton(button); // Animar el botón presionado
+        }
 
 
-        // Add product to cart
-        document.querySelectorAll('.producto-btn').forEach(button => {
+        // Modificar el listener del botón "Añadir" original
+        document.querySelectorAll('.add-to-cart-btn').forEach(button => {
             button.addEventListener('click', function() {
-                console.log("Add product button clicked!"); // Debugging line
                 const card = this.closest('.producto-card');
                 const productName = card.querySelector('.producto-nombre').textContent;
-                const productPrice = parseFloat(card.querySelector('.producto-precio').textContent.replace('$', ''));
+                const productPriceText = card.querySelector('.producto-precio').textContent;
+                const productPrice = parseFloat(productPriceText.replace('$', ''));
+                 const quantityControls = card.querySelector('.quantity-controls'); // Obtener controles
+                 const quantitySpan = card.querySelector('.item-quantity'); // Obtener span de cantidad
 
-                const existingItem = cart.find(item => item.name === productName);
 
-                if (existingItem) {
-                    existingItem.quantity += 1;
-                    showNotification(`${productName} - Cantidad actualizada: ${existingItem.quantity}`);
+                if (isNaN(productPrice)) {
+                    showNotification('Error: Precio del producto no válido.', 'error');
+                    return;
+                }
+
+                let existingItemIndex = cart.findIndex(item => item.name === productName && !item.isByWeight);
+
+                if (existingItemIndex !== -1) {
+                     // Si ya existe, solo incrementa la cantidad (esto no debería ocurrir con la nueva UI,
+                     // pero es un fallback seguro si se presiona el botón antes de que la UI cambie)
+                    cart[existingItemIndex].quantity += 1;
+                    cart[existingItemIndex].price = productPrice * cart[existingItemIndex].quantity;
+                    showNotification(`${productName} - Cantidad actualizada: ${cart[existingItemIndex].quantity}`);
+                     if (quantitySpan) quantitySpan.textContent = cart[existingItemIndex].quantity;
+
                 } else {
+                    // Si no existe, añadir con cantidad 1
                     const product = {
+                        id: Date.now() + Math.random().toString(36).substr(2, 9), // ID único
                         name: productName,
-                        price: productPrice,
-                        quantity: 1
+                        unitPrice: productPrice, // Guardar precio unitario
+                        price: productPrice,     // Precio total inicial del item
+                        quantity: 1,
+                        isByWeight: false
                     };
                     cart.push(product);
                     showNotification(`${productName} agregado al pedido`);
+                    // Después de añadir o actualizar, mostrar los controles y ocultar el botón "Añadir"
+                     if (this) this.style.display = 'none';
+                     if (quantityControls) quantityControls.style.display = 'flex';
+                     if (quantitySpan) quantitySpan.textContent = 1; // La cantidad inicial es 1
                 }
 
-                updateCartAndStorage();
 
-                card.style.transform = 'scale(1.05)';
-                card.style.boxShadow = '0 0 30px rgba(37, 211, 102, 0.8)';
-                setTimeout(() => {
-                    card.style.transform = '';
-                    card.style.boxShadow = '0 4px 12px rgba(0, 0, 0, 0.15)';
-                }, 300);
+                updateCartAndStorage();
+                animateButton(this);
+            });
+        });
+
+        // Añadir listeners para los botones +/- en las tarjetas (delegación o directamente)
+        // Usaremos delegación de eventos para ser más eficientes, ya que los botones se muestran/ocultan.
+        document.querySelector('.productos-grid').addEventListener('click', function(event) {
+            const target = event.target;
+            if (target.classList.contains('increase-card')) {
+                handleCardQuantityChange(target, 1);
+            } else if (target.classList.contains('decrease-card')) {
+                handleCardQuantityChange(target, -1);
+            }
+        });
+
+
+        // --- FIN FUNCIONES Y MODIFICACIONES PARA CONTROLES EN TARJETA ---
+
+
+        // Listeners para los botones de añadir de productos por peso (SIN CAMBIOS SIGNIFICATIVOS)
+        document.querySelectorAll('.producto-card[data-vendido-por-peso="true"]').forEach(card => {
+            const quantityInput = card.querySelector('.cantidad-peso');
+            const unitSelect = card.querySelector('.unidad-peso');
+            const coccionSelect = card.querySelector('.coccion-select');
+            const priceDisplay = card.querySelector('.producto-precio-kg-display');
+            const addButton = card.querySelector('.producto-btn-peso');
+
+            // Función para actualizar el precio mostrado basado en cocción
+            function updatePriceDisplayAndLabel() {
+                 const selectedCoccion = coccionSelect.value;
+                 const pricePerKg = selectedCoccion === 'cocida' ?
+                                   parseFloat(card.dataset.precioKgCocida) :
+                                   parseFloat(card.dataset.precioKgCruda);
+                 priceDisplay.textContent = `Precio por Kilo (${selectedCoccion === 'cocida' ? 'Cocida' : 'Cruda'}): $${pricePerKg}`;
+            }
+
+            // Inicializar el precio mostrado
+            updatePriceDisplayAndLabel();
+
+            // Escuchar cambios en la selección de cocción
+            coccionSelect.addEventListener('change', updatePriceDisplayAndLabel);
+            // No es necesario actualizar en input de cantidad o unidad, ya que el precio base por kg no cambia con eso.
+
+
+            // Listener para el botón de añadir producto por peso
+            addButton.addEventListener('click', function() {
+                const baseProductName = card.querySelector('.producto-nombre').textContent;
+                const selectedCoccion = coccionSelect.value;
+                const pricePerKg = selectedCoccion === 'cocida' ?
+                                   parseFloat(card.dataset.precioKgCocida) :
+                                   parseFloat(card.dataset.precioKgCruda);
+
+                let quantity = parseFloat(quantityInput.value);
+                const unit = unitSelect.value;
+
+                // Validaciones de cantidad
+                if (isNaN(quantity) || quantity <= 0) {
+                    showNotification('Por favor, ingresa una cantidad válida.', 'error');
+                    quantityInput.focus();
+                    return;
+                }
+                if (unit === 'gr' && quantity < 100) {
+                     showNotification('La cantidad mínima en gramos es 100gr.', 'error');
+                     quantityInput.value = 100; // Establecer al mínimo si es menor
+                     quantityInput.focus();
+                     return;
+                }
+                 // Añadidos límites superiores
+                 if (unit === 'kg' && (quantity < 0.1 || quantity > 20)) {
+                     showNotification('La cantidad en kg debe ser entre 0.1kg y 20kg.', 'error');
+                     quantityInput.value = Math.max(0.1, Math.min(quantity, 20)); // Limitar el valor
+                     quantityInput.focus();
+                     return;
+                 }
+                 if (unit === 'gr' && quantity > 20000) { // Límite para gramos (20kg)
+                     showNotification('La cantidad máxima en gramos es 20000gr (20kg).', 'error');
+                     quantityInput.value = 20000; // Limitar el valor
+                     quantityInput.focus();
+                     return;
+                 }
+
+                let itemPrice;
+                let displayQuantity;
+                let weightInKg;
+
+                // Calcular el peso en kg y el precio
+                if (unit === 'gr') {
+                    weightInKg = quantity / 1000;
+                    displayQuantity = `${quantity} gr`;
+                } else { // kg
+                    weightInKg = quantity;
+                    displayQuantity = `${quantity} kg`;
+                }
+                itemPrice = weightInKg * pricePerKg;
+
+                // Nombre del producto como aparecerá en el carrito y pedido
+                const productNameInCart = `${baseProductName.replace(' por Kilo/Gramo', '')} (${displayQuantity}, ${selectedCoccion === 'cocida' ? 'Cocida' : 'Cruda'})`;
+
+                const product = {
+                    id: Date.now() + Math.random().toString(36).substr(2, 9), // ID único para el item del carrito
+                    name: productNameInCart,
+                    price: parseFloat(itemPrice.toFixed(2)), // Precio total del item
+                    quantity: 1, // Para items por peso en el carrito, la "cantidad" es siempre 1 (representa una entrada)
+                    isByWeight: true,
+                    baseName: baseProductName.replace(' por Kilo/Gramo', ''), // Nombre base sin el "por Kilo/Gramo"
+                    weight: quantity, // Cantidad numérica del peso solicitado
+                    unit: unit,       // 'gr' o 'kg'
+                    coccion: selectedCoccion
+                };
+
+                // Añadir el item por peso al carrito (siempre como una nueva entrada)
+                cart.push(product);
+
+                showNotification(`${productNameInCart} agregado por $${product.price.toFixed(2)}`);
+
+                updateCartAndStorage(); // Actualizar localStorage y resumen del modal
+                animateButton(this); // Animar el botón
             });
         });
 
 
-        // Actualizar resumen del pedido en el modal
+        function animateButton(buttonElement) {
+            // Usa requestAnimationFrame para asegurar que el estilo se aplique antes de la animación
+            requestAnimationFrame(() => {
+                buttonElement.style.transform = 'scale(1.1)';
+                // Solo aplica box-shadow si el botón lo tenía originalmente o si quieres añadirlo
+                // if (buttonElement.classList.contains('add-to-cart-btn') || buttonElement.classList.contains('producto-btn-peso')) {
+                    buttonElement.style.boxShadow = '0 0 15px rgba(37, 211, 102, 0.6)'; // Sombra verde
+                 //} else if (buttonElement.classList.contains('decrease-card')) {
+                 //   buttonElement.style.boxShadow = '0 0 15px rgba(230, 57, 70, 0.6)'; // Sombra roja para disminuir
+                 //}
+
+
+                setTimeout(() => {
+                    buttonElement.style.transform = '';
+                     // Restaura box-shadow a su estado original o lo elimina si se añadió temporalmente
+                     // if (buttonElement.classList.contains('add-to-cart-btn') || buttonElement.classList.contains('producto-btn-peso')) {
+                         buttonElement.style.boxShadow = ''; // Eliminar la sombra temporal
+                     //} else if (buttonElement.classList.contains('decrease-card')) {
+                     //   buttonElement.style.boxShadow = '';
+                     //}
+
+                }, 250);
+            });
+        }
+
+
+        // Función para actualizar el resumen del pedido en el modal de WhatsApp
         function updateWhatsappOrderSummary() {
             orderItemsContainer.innerHTML = '';
-
-            if (cart.length === 0) {
-                orderItemsContainer.innerHTML = '<p>No hay productos en tu pedido</p>';
-                document.getElementById('whatsapp-order-total').textContent = '$0.00';
-                 // Use flex display when cart is not empty to show button and label
-                whatsappButton.parentElement.style.display = 'none';
-            } else {
-                 // Use flex display when cart is not empty to show button and label
-                 whatsappButton.parentElement.style.display = 'flex';
-            }
-
             let total = 0;
 
+            if (cart.length === 0) {
+                orderItemsContainer.innerHTML = '<p style="text-align: center; color: #777;">Tu carrito está vacío.</p>';
+                document.getElementById('whatsapp-order-total').textContent = '$0.00';
+                // Ocultar el contenedor del botón flotante si el carrito está vacío
+                if (whatsappButton.parentElement) {
+                    whatsappButton.parentElement.style.display = 'none';
+                }
+                return;
+            }
+
+            // Mostrar el contenedor del botón flotante si hay items
+            if (whatsappButton.parentElement) {
+                whatsappButton.parentElement.style.display = 'flex';
+            }
+
+
             cart.forEach(item => {
-                const itemTotal = item.price * item.quantity;
-                total += itemTotal;
+                total += item.price; // El 'price' del item ya es el total para ese item (unitPrice * quantity o calculado por peso)
 
                 const itemElement = document.createElement('div');
                 itemElement.className = 'whatsapp-item';
+
+                let itemDisplayName = item.name;
+                // En el resumen del modal, SI mostramos la cantidad para items NO por peso
+                 if (!item.isByWeight) {
+                     // Mostramos el nombre y luego la cantidad entre paréntesis
+                     // El (xN) se agrega en el innerHTML
+                 }
+
+
                 itemElement.innerHTML = `
                     <div class="item-info">
-                        <span>${item.name} x${item.quantity}</span>
-                        <span>$${itemTotal.toFixed(2)}</span>
+                        <span>${sanitizeInput(itemDisplayName)} ${!item.isByWeight ? `(x${item.quantity})` : ''}</span>
+                        <span>$${item.price.toFixed(2)}</span>
                     </div>
                     <div class="item-actions">
-                        <button type="button" class="quantity-btn decrease" data-product="${item.name}" aria-label="Disminuir cantidad">-</button>
-                        <button type="button" class="quantity-btn increase" data-product="${item.name}" aria-label="Aumentar cantidad">+</button>
-                        <button type="button" class="delete-btn" data-product="${item.name}" aria-label="Eliminar producto">×</button>
+                        ${!item.isByWeight ? `
+                        <button type="button" class="quantity-btn decrease" data-id="${item.id}" aria-label="Disminuir cantidad">-</button>
+                        <button type="button" class="quantity-btn increase" data-id="${item.id}" aria-label="Aumentar cantidad">+</button>
+                        ` : ''}
+                        <button type="button" class="delete-btn" data-id="${item.id}" aria-label="Eliminar producto"><i class="fas fa-trash-alt"></i></button>
                     </div>
                 `;
                 orderItemsContainer.appendChild(itemElement);
             });
 
             document.getElementById('whatsapp-order-total').textContent = `$${total.toFixed(2)}`;
-
-            attachCartItemEventListeners();
+            attachCartItemEventListeners(); // Volver a adjuntar listeners para los botones del modal
         }
 
+        // Función para adjuntar listeners a los botones +/- y eliminar dentro del MODAL
         function attachCartItemEventListeners() {
-             // Remove existing listeners before adding new ones to prevent duplicates
-             orderItemsContainer.querySelectorAll('.delete-btn').forEach(btn => {
-                // Clone the element to remove all event listeners
-                const newBtn = btn.cloneNode(true);
-                btn.parentNode.replaceChild(newBtn, btn);
-            });
-             orderItemsContainer.querySelectorAll('.decrease').forEach(btn => {
-                const newBtn = btn.cloneNode(true);
-                btn.parentNode.replaceChild(newBtn, btn);
-            });
-             orderItemsContainer.querySelectorAll('.increase').forEach(btn => {
-                const newBtn = btn.cloneNode(true);
-                btn.parentNode.replaceChild(newBtn, btn);
-            });
+             // Eliminar listeners previos para evitar duplicados
+             document.querySelectorAll('.whatsapp-item .delete-btn').forEach(btn => {
+                 btn.removeEventListener('click', handleDeleteItem);
+             });
+             document.querySelectorAll('.whatsapp-item .decrease').forEach(btn => {
+                 btn.removeEventListener('click', handleDecreaseQuantity);
+             });
+             document.querySelectorAll('.whatsapp-item .increase').forEach(btn => {
+                 btn.removeEventListener('click', handleIncreaseQuantity);
+             });
 
-
-             orderItemsContainer.querySelectorAll('.delete-btn').forEach(btn => {
+             // Adjuntar nuevos listeners
+            document.querySelectorAll('.whatsapp-item .delete-btn').forEach(btn => {
                 btn.addEventListener('click', handleDeleteItem);
             });
-
-            orderItemsContainer.querySelectorAll('.decrease').forEach(btn => {
+            document.querySelectorAll('.whatsapp-item .decrease').forEach(btn => {
                 btn.addEventListener('click', handleDecreaseQuantity);
             });
-
-            orderItemsContainer.querySelectorAll('.increase').forEach(btn => {
+            document.querySelectorAll('.whatsapp-item .increase').forEach(btn => {
                 btn.addEventListener('click', handleIncreaseQuantity);
             });
         }
 
+        // Maneja la eliminación de un item desde el MODAL
         function handleDeleteItem() {
-             const productName = this.dataset.product;
-            removeFromCart(productName);
+            const itemId = this.dataset.id;
+            const itemIndex = cart.findIndex(item => item.id === itemId);
+            if (itemIndex > -1) {
+                const removedItem = cart.splice(itemIndex, 1)[0];
+                showNotification(`${!removedItem.isByWeight && removedItem.quantity > 1 ? `(x${removedItem.quantity}) ` : ''}${removedItem.name} eliminado`, 'error');
+                updateCartAndStorage(); // Actualizar localStorage y UI del modal
+                 updateProductCardQuantities(); // <--- Actualizar la vista de la tarjeta si se eliminó el último item
+            }
         }
 
+        // Maneja la disminución de cantidad desde el MODAL (solo para items no por peso)
         function handleDecreaseQuantity() {
-             const productName = this.dataset.product;
-            decreaseQuantity(productName);
+            const itemId = this.dataset.id;
+            const item = cart.find(i => i.id === itemId);
+            if (item && !item.isByWeight) { // Solo para items no por peso
+                if (item.quantity > 1) {
+                    item.quantity -= 1;
+                    item.price = item.unitPrice * item.quantity; // Recalcular precio del item
+                    showNotification(`${item.name} - Cantidad: ${item.quantity}`, 'error');
+                } else {
+                    // Si la cantidad es 1 y se disminuye, eliminar el item
+                    const itemIndex = cart.findIndex(i => i.id === itemId);
+                    const removedItem = cart.splice(itemIndex, 1)[0];
+                    showNotification(`${removedItem.name} eliminado`, 'error');
+                }
+                updateCartAndStorage(); // Actualizar localStorage y UI del modal
+                 updateProductCardQuantities(); // <--- Actualizar la vista de la tarjeta si se eliminó el último item
+            }
         }
 
+        // Maneja el aumento de cantidad desde el MODAL (solo para items no por peso)
         function handleIncreaseQuantity() {
-             const productName = this.dataset.product;
-            const product = cart.find(item => item.name === productName);
-            if (product) {
-                product.quantity += 1;
-                updateCartAndStorage();
-                showNotification(`${product.name} - Cantidad: ${product.quantity}`);
+            const itemId = this.dataset.id;
+            const item = cart.find(i => i.id === itemId);
+            if (item && !item.isByWeight) { // Solo para items no por peso
+                item.quantity += 1;
+                item.price = item.unitPrice * item.quantity; // Recalcular precio del item
+                showNotification(`${item.name} - Cantidad: ${item.quantity}`);
+                updateCartAndStorage(); // Actualizar localStorage y UI del modal
+                 updateProductCardQuantities(); // <--- Actualizar la vista de la tarjeta (aunque probablemente no cambie)
             }
         }
 
-        function decreaseQuantity(productName) {
-            const product = cart.find(item => item.name === productName);
-            if (!product) return;
-
-            if (product.quantity > 1) {
-                product.quantity -= 1;
-                showNotification(`${productName} - Cantidad: ${product.quantity}`, 'error');
-            } else {
-                removeFromCart(productName);
-            }
-            updateCartAndStorage();
-        }
-
-        function removeFromCart(productName) {
-            cart = cart.filter(item => item.name !== productName);
-            showNotification(`${productName} eliminado`, 'error');
-            updateCartAndStorage();
-        }
-
+        // Actualiza el localStorage y ambas vistas (modal y tarjetas)
         function updateCartAndStorage() {
-             updateWhatsappOrderSummary();
             localStorage.setItem('taqueriaCart', JSON.stringify(cart));
+            updateWhatsappOrderSummary(); // Actualiza el resumen del modal
+            updateProductCardQuantities(); // <--- Asegura que las tarjetas reflejen el carrito
         }
 
-// Enviar pedido por WhatsApp y guardar en Google Sheet
-whatsappForm.addEventListener('submit', function(e) {
+        // --- FUNCIÓN sendOrderToGoogleSheet USANDO FETCH (Compatible con tu script doPost JSON) ---
+        async function sendOrderToGoogleSheet(formData) {
+            // URL de tu Web App de Google Apps Script (debes reemplazarla con la tuya)
+            const googleScriptWebAppUrl = 'https://script.google.com/macros/s/AKfycbzS6Y8ga12qALH5HIGHaBy_sBKBp51Cw5ObOYRWCDzF0uj6KQi5gmQj6qtJ85KZmSg/exec';
+
+            if (!googleScriptWebAppUrl || googleScriptWebAppUrl === '') {
+                console.warn('URL de Google Apps Script no configurada. El pedido NO se guardará en la hoja de cálculo.');
+                return {success: false, message: 'URL no configurada'};
+            }
+
+            try {
+                const response = await fetch(googleScriptWebAppUrl, {
+                    method: 'POST',
+                    mode: 'no-cors', // Usamos 'no-cors' para evitar problemas con CORS
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify(formData)
+                });
+
+                // Con 'no-cors' no podemos leer la respuesta, pero sabemos que se envió
+                // En un entorno real con CORS configurado, podrías leer response.json()
+                return {success: true, message: 'Pedido enviado a Google Sheets'};
+            } catch (error) {
+                console.error('Error al enviar a Google Sheets:', error);
+                return {success: false, message: 'Error al conectar con Google Sheets'};
+            }
+        }
+
+        // Evento submit del formulario
+        whatsappForm.addEventListener('submit', async function(e) {
             e.preventDefault();
+            const submitButton = this.querySelector('button[type="submit"]');
+            if (submitButton.disabled) return;
 
-            // Obtener el botón de envío
-            const submitButton = this.querySelector('button[type="submit"]'); // O document.querySelector('.whatsapp-submit');
-
-            // Desactivar el botón inmediatamente para prevenir envíos duplicados
-            if (submitButton) {
-                submitButton.disabled = true;
-                submitButton.textContent = 'Enviando...'; // Opcional: Cambia el texto para dar feedback al usuario
-                submitButton.style.opacity = '0.7'; // Opcional: Cambia la apariencia
-                submitButton.style.cursor = 'not-allowed';
-            }
-
-
-            const name = sanitizeInput(document.getElementById('whatsapp-name').value);
+            // Validaciones de campos
+            const name = sanitizeInput(document.getElementById('whatsapp-name').value.trim());
             const method = document.getElementById('whatsapp-method').value;
-            const table = method === 'Mesa' ? sanitizeInput(document.getElementById('whatsapp-table').value) : 'N/A';
-            const notes = sanitizeInput(document.getElementById('whatsapp-notes').value);
+            const table = method === 'Mesa' ? sanitizeInput(document.getElementById('whatsapp-table').value.trim()) : '';
+            const notes = sanitizeInput(document.getElementById('whatsapp-notes').value.trim());
 
-            if (!name || !method) {
-                showNotification("Completa los campos requeridos", "error");
-                 // Re-activar botón si la validación falla
-                if (submitButton) {
-                    submitButton.disabled = false;
-                    submitButton.innerHTML = '<i class="fab fa-whatsapp"></i> Enviar Pedido'; // Restaura el contenido original
-                     submitButton.style.opacity = '';
-                     submitButton.style.cursor = '';
-                }
+            if (!name) {
+                showNotification("Por favor, ingresa tu nombre.", "error");
                 return;
             }
-            if (method === 'Mesa' && !table && tableField.style.display !== 'none') {
-                 showNotification("Ingresa el número de mesa", "error");
-                 // Re-activar botón si la validación falla
-                 if (submitButton) {
-                    submitButton.disabled = false;
-                    submitButton.innerHTML = '<i class="fab fa-whatsapp"></i> Enviar Pedido'; // Restaura el contenido original
-                     submitButton.style.opacity = '';
-                     submitButton.style.cursor = '';
-                }
+            if (!method) {
+                showNotification("Por favor, selecciona el tipo de pedido.", "error");
                 return;
             }
-             if (cart.length === 0) {
-                 showNotification("Tu pedido está vacío", "error");
-                  // Re-activar botón si la validación falla
-                 if (submitButton) {
-                    submitButton.disabled = false;
-                    submitButton.innerHTML = '<i class="fab fa-whatsapp"></i> Enviar Pedido'; // Restaura el contenido original
-                     submitButton.style.opacity = '';
-                     submitButton.style.cursor = '';
-                }
-                 return;
-             }
+            if (method === 'Mesa' && !table) {
+                showNotification("Por favor, ingresa el número de mesa.", "error");
+                return;
+            }
+            if (cart.length === 0) {
+                showNotification("Tu carrito está vacío. Agrega productos antes de enviar.", "error");
+                return;
+            }
+
+            submitButton.disabled = true;
+            submitButton.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Enviando...'; // Cambiar texto y añadir spinner
+
+            // Preparar datos para WhatsApp
+            const itemsTextForWhatsapp = cart.map(item => {
+                let itemDescription = item.name;
+                 // Para items que no son por peso, añadir cantidad al nombre en el mensaje de WhatsApp
+                 if (!item.isByWeight) {
+                     itemDescription += ` (x${item.quantity})`;
+                 }
+                return `🌮 ${itemDescription} - $${item.price.toFixed(2)}`;
+            }).join('%0A'); // %0A es salto de línea en URL de WhatsApp
+
+            const totalPedido = cart.reduce((sum, item) => sum + item.price, 0).toFixed(2);
+
+            // --- MODIFICACIÓN AQUÍ: Preparar datos para Google Sheets como una sola cadena de texto ---
+             const orderSummaryForSheet = cart.map(item => {
+                 // Formato para cada línea del pedido en la hoja de cálculo
+                 if (item.isByWeight) {
+                     // Para items por peso, incluimos el nombre base, peso, unidad y cocción
+                     return `${item.baseName} (${item.weight}${item.unit}, ${item.coccion === 'cocida' ? 'Cocida' : 'Cruda'}) - $${item.price.toFixed(2)}`;
+                 } else {
+                     // Para items por unidad, incluimos el nombre y la cantidad
+                     return `${item.name} (x${item.quantity}) - $${item.price.toFixed(2)}`;
+                 }
+             }).join(',   '); // Usar un separador como '|' o ', ' o ' - '
 
 
-            // Recopilar datos del pedido
-            const orderDetails = cart.map(item =>
-                `${item.name} (x${item.quantity}) - $${(item.price * item.quantity).toFixed(2)}`
-            ).join(', ');
-
-            const totalAmount = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0).toFixed(2);
-
-            // Datos a enviar a Google Apps Script
-            const dataToSave = {
-                timestamp: new Date().toLocaleString('es-MX'),
+            // Preparar datos para Google Sheets
+            const formDataForSheet = {
+                timestamp: new Date().toLocaleString('es-MX', { timeZone: 'America/Mexico_City' }), // Usar formato de fecha y hora de México
                 name: name,
                 method: method,
-                table: table,
-                order: orderDetails,
-                total: totalAmount,
-                notes: notes
+                table: method === 'Mesa' ? table : 'N/A',
+                 order: orderSummaryForSheet, // <-- Usamos la cadena de texto generada aquí
+                total: totalPedido, // Renombrado para mayor claridad
+                notes: notes || 'Ninguna'
             };
-
-            // URL de tu Google Apps Script desplegado como Web App
-            const appScriptUrl = 'https://script.google.com/macros/s/AKfycbybo_sFBM7TqgvPQ8KiKDbNjkrjKQlEpCHZzFEIL3iVL0SBZKaZ4F-b3iAcCKYFedJT/exec'; // *** Asegúrate de que esta URL es correcta ***
-
-            // Enviar datos a Google Apps Script
-            fetch(appScriptUrl, {
-                method: 'POST',
-                mode: 'no-cors',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify(dataToSave)
-            })
-            .then(response => {
-                console.log('Datos enviados a Google Apps Script', response);
-                // Aunque mode:no-cors limita la información aquí, la solicitud ya fue enviada.
-            })
-            .catch((error) => {
-                console.error('Error al enviar datos a Google Apps Script:', error);
-                showNotification('Error al guardar el pedido', 'error');
-                 // Re-activar botón en caso de error en el fetch
-                 if (submitButton) {
-                    submitButton.disabled = false;
-                    submitButton.innerHTML = '<i class="fab fa-whatsapp"></i> Enviar Pedido'; // Restaura el contenido original
-                     submitButton.style.opacity = '';
-                     submitButton.style.cursor = '';
-                }
-            });
+            // --- FIN MODIFICACIÓN ---
 
 
-            // Generar mensaje para WhatsApp (esto sucede casi inmediatamente después del fetch)
-            const itemsText = cart.map(item =>
-                `🌮 ${item.name} x${item.quantity} - $${(item.price * item.quantity).toFixed(2)}`
-            ).join('%0A');
+            // Enviar a Google Sheets (no esperamos respuesta por usar 'no-cors')
+            // Considera manejar errores aquí si la conexión falla, aunque con no-cors es limitado
+            sendOrderToGoogleSheet(formDataForSheet);
 
-            const message = `*PEDIDO - EL BOTUDO*%0A%0A` +
-                `_*🤵🏻 Cliente:*_ ${encodeURIComponent(name)}%0A` +
-                `${method === 'Mesa' ? `🪑 *Mesa:* ${table}` : '🚚 *Para llevar*'}` +
-                `%0A%0A*🍽️ Pedido:*%0A${itemsText}%0A%0A` +
-                `*💰 Total:* $${totalAmount}%0A` +
-                `*📝 Notas:* ${encodeURIComponent(notes || 'Ninguna')}`;
+            // Enviar por WhatsApp
+            // REEMPLAZA "TU_NUMERO_DE_WHATSAPP" CON EL NÚMERO REAL
+            const whatsappNumber = "527772400773"; // Ejemplo: "5217771234567" (código de país + número)
+            const whatsappMessage = `*PEDIDO - EL BOTUDO*%0A%0A` +
+                `*👤 Cliente:* ${encodeURIComponent(name)}%0A` +
+                `${method === 'Mesa' ? `🪑 *Mesa:* ${encodeURIComponent(table)}` : '🚚 *Para llevar*'}` + // Condicional para Mesa o Para llevar
+                `%0A%0A*🍽️ Pedido:*%0A${itemsTextForWhatsapp}%0A%0A` +
+                `*💰 Total:* $${totalPedido}%0A%0A` +
+                `*📝 Notas:* ${encodeURIComponent(notes || 'Ninguna')}`; // Usar 'Ninguna' si no hay notas
+
+             // Usar window.location.href en lugar de window.open para mayor compatibilidad en móviles
+              window.open(`https://wa.me/${whatsappNumber}?text=${whatsappMessage}`, '_blank');
 
 
-            // Abrir WhatsApp y limpiar/cerrar modal (con un pequeño retraso)
-            // El botón se re-activa aquí porque el proceso principal ha terminado (fetch iniciado, ventana de WhatsApp abierta)
+            // Limpiar y cerrar después de un breve retraso
             setTimeout(() => {
-                 // Re-activar el botón antes de cerrar el modal
-                 if (submitButton) {
-                    submitButton.disabled = false;
-                    submitButton.innerHTML = '<i class="fab fa-whatsapp"></i> Enviar Pedido'; // Restaura el contenido original
-                     submitButton.style.opacity = '';
-                     submitButton.style.cursor = '';
-                }
-                window.open(`https://wa.me/527772400773?text=${message}`, '_blank'); // Abrimos WhatsApp aquí después de re-activar, o podrías moverlo justo antes del setTimeout
                 closeModal();
-                cart = [];
-                localStorage.removeItem('taqueriaCart');
-                updateWhatsappOrderSummary();
-                showNotification("Pedido enviado con éxito", "success");
-            }, 500); // Retraso de 500ms
+                cart = []; // Vaciar el carrito
+                localStorage.removeItem('taqueriaCart'); // Eliminar del almacenamiento local
+                updateCartAndStorage(); // Actualiza la UI del modal y las tarjetas (ahora vacías)
+                 updateProductCardQuantities(); // Asegura que las tarjetas vuelvan a mostrar "Añadir"
+                whatsappForm.reset(); // Limpiar el formulario
+                tableField.style.display = 'none'; // Ocultar campo de mesa
+                document.getElementById('whatsapp-table').removeAttribute('required'); // Quitar required
+
+                showNotification("¡Pedido enviado con éxito!", "success"); // Notificación de éxito
+                submitButton.disabled = false; // Habilitar botón de envío
+                submitButton.innerHTML = '<i class="fab fa-whatsapp"></i> Enviar Pedido'; // Restaurar texto del botón
+            }, 1500); // Retraso antes de limpiar y cerrar
+        });
+        // --- FIN listener formulario whatsappForm ---
+
+
+        // El resto de tus listeners y funciones existentes (scroll, navegación, etc.)
+        // deben permanecer aquí, fuera del listener DOMContentLoaded si ya lo están,
+        // o dentro si es necesario.
+
+        document.addEventListener('DOMContentLoaded', function() {
+             // Inicializar el carrito y actualizar la UI al cargar la página
+             initCart();
+
+             // Ejecutar la animación inicial para elementos visibles al cargar
+             animateOnScroll();
+
+             // ... otros listeners que necesitan DOMContentLoaded ...
+
+             // Delegación de eventos para los botones +/- en las tarjetas (asegurarse de que esté dentro de DOMContentLoaded si no lo está fuera)
+             // Ya está definida arriba, pero asegúrate de que no haya duplicados si tenías un listener similar antes.
         });
 
-        // Ensure the cart is initialized when the DOM is fully loaded
-        document.addEventListener('DOMContentLoaded', function() {
-             initCart();
-             animateOnScroll(); // Also run initial animation check
-        });
 
     </script>
 </body>
 </html>
+
+
+
+
+
+
+
+
+
+<!--ARCHIVO EN EL HOSTING-->
