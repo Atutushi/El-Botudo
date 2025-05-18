@@ -484,13 +484,36 @@
         }
 
         .producto-btn-peso {
-             background: var(--verde-agave);
-             color: white;
-             width: 100%;
-        }
-        .producto-btn-peso:hover {
-            background: #228A7D;
-        }
+    background: var(--verde-agave); /* Color de fondo verde original */
+    color: white; /* Color del texto */
+    border: none; /* Sin borde */
+    padding: 0.6rem 1.2rem; /* Padding de los otros botones */
+    border-radius: 50px; /* Bordes redondeados como los otros botones */
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 700;
+    cursor: pointer;
+    transition: var(--transicion); /* Transición suave */
+    display: flex;
+    align-items: center;
+    justify-content: center; /* Centrar contenido (icono y texto) */
+    gap: 0.5rem; /* Espacio entre icono y texto */
+    width: 100%; /* Mantener ancho del 100% */
+}
+
+.producto-btn-peso:hover {
+    background: #228A7D; /* Color de fondo verde más oscuro al pasar el ratón */
+    color: white; /* Color del texto blanco al pasar el ratón */
+    transform: scale(1.05); /* Efecto de escala al pasar el ratón */
+}
+
+.producto-btn-peso i {
+    margin-right: 0;
+}
+
+/* Si necesitas alinear el botón a la derecha dentro del footer, usa esto */
+.producto-card[data-vendido-por-peso="true"] .producto-footer {
+    justify-content: flex-end; /* Alinea el botón a la derecha si el footer es flex */
+}
 
         .visually-hidden {
              position: absolute;
@@ -1591,11 +1614,12 @@
             <button class="filtro-btn" data-categoria="tacos">Tacos</button>
             <button class="filtro-btn" data-categoria="orden">Orden</button>
             <button class="filtro-btn" data-categoria="paquetes">Paquetes</button>
-             <button class="filtro-btn" data-categoria="especiales">Especiales</button>
+            <button class="filtro-btn" data-categoria="especiales">Especiales</button>
+            <button class="filtro-btn" data-categoria="Sopes">Sopes</button>
             <button class="filtro-btn" data-categoria="extras">Extras</button>
             <button class="filtro-btn" data-categoria="bebidas">Bebidas</button>
             <button class="filtro-btn" data-categoria="postres">Postres</button>
-            <button class="filtro-btn" data-categoria="peso">Carne por Peso</button>
+            <button class="filtro-btn" data-categoria="peso">Carne por Kilo</button>
         </div>
 
         <div class="productos-grid">
@@ -1704,7 +1728,7 @@
 
             <div class="producto-card" data-categoria="especiales">
                 <div class="producto-img-container">
-                    <img src="https://cloudfront-us-east-1.images.arcpublishing.com/infobae/JBECRDKR3FDXJIRI2AQOYFHY6I.jpg" alt="Caldo pancita de res" class="producto-img">
+                    <img src="https://imagenes.elpais.com/resizer/v2/46LSDHVPNJG4XOFKTHIZUKTDB4.jpg?auth=72b517c62a10aa8bea1e9d2f1fd27debf76b53c7e8f09e52b60e422c5b66737f&width=1960&height=1470&focal=2950%2C1890" alt="Caldo pancita de res" class="producto-img">
                 </div>
                 <div class="producto-info">
                     <div class="producto-badge">Nuevo</div>
@@ -1725,7 +1749,7 @@
 
             <div class="producto-card" data-categoria="especiales">
                 <div class="producto-img-container">
-                    <img src="https://cloudfront-us-east-1.images.arcpublishing.com/infobae/JBECRDKR3FDXJIRI2AQOYFHY6I.jpg" alt="Caldo pancita de res" class="producto-img">
+                    <img src="https://www.cocinadelirante.com/800x600/filters:format(webp):quality(75)/sites/default/files/images/2020/08/como-hacer-pancita-casera-receta-sencilla.jpg" alt="Caldo pancita de res" class="producto-img">
                 </div>
                 <div class="producto-info">
                     <div class="producto-badge">Nuevo</div>
@@ -1744,9 +1768,93 @@
                 </div>
             </div>
 
+            <div class="producto-card" data-categoria="Sopes">
+                <div class="producto-badge">Nuevo</div>
+                <div class="producto-img-container">
+                    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTdv08lfhu12pan4pASECMCN3F1cTpP6-lFmQ&s" alt="Sope sencillo" class="producto-img">
+                </div>
+                <div class="producto-info">
+                    <span class="producto-categoria">Sopes</span>
+                    <h3 class="producto-nombre">Sope sencillo</h3>
+                    <p class="producto-desc">Un clásico que no falla, un festín de texturas y sabores puros en cada mordida. Ideal para acompañar o disfrutar solo.</p>
+                    <div class="producto-footer">
+                        <span class="producto-precio">$20</span>
+                         <div class="quantity-controls" style="display: none;">
+                            <button type="button" class="quantity-btn decrease-card" aria-label="Disminuir cantidad">-</button>
+                            <span class="item-quantity">0</span>
+                            <button type="button" class="quantity-btn increase-card" aria-label="Aumentar cantidad">+</button>
+                        </div>
+                        <button class="producto-btn add-to-cart-btn"><i class="fas fa-plus"></i> Añadir</button>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="producto-card" data-categoria="Sopes">
+                <div class="producto-badge">Nuevo</div>
+                <div class="producto-img-container">
+                    <img src="https://editorialtelevisa.brightspotcdn.com/dims4/default/57be87d/2147483647/strip/true/crop/995x560+3+0/resize/1000x563!/quality/90/?url=https%3A%2F%2Fk2-prod-editorial-televisa.s3.us-east-1.amazonaws.com%2Fbrightspot%2Fwp-content%2Fuploads%2F2018%2F07%2Fsopes-de-cecina.jpg" alt="Sope con cecina" class="producto-img">
+                </div>
+                <div class="producto-info">
+                    <span class="producto-categoria">Sopes</span>
+                    <h3 class="producto-nombre">Sope con Cecina</h3>
+                    <p class="producto-desc">   </p>
+                    <div class="producto-footer">
+                        <span class="producto-precio">$20</span>
+                         <div class="quantity-controls" style="display: none;">
+                            <button type="button" class="quantity-btn decrease-card" aria-label="Disminuir cantidad">-</button>
+                            <span class="item-quantity">0</span>
+                            <button type="button" class="quantity-btn increase-card" aria-label="Aumentar cantidad">+</button>
+                        </div>
+                        <button class="producto-btn add-to-cart-btn"><i class="fas fa-plus"></i> Añadir</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="producto-card" data-categoria="Sopes">
+                <div class="producto-badge">Nuevo</div>
+                <div class="producto-img-container">
+                    <img src="https://cdn7.kiwilimon.com/recetaimagen/32280/640x640/36995.jpg.jpg" alt="Sope con Longaniza" class="producto-img">
+                </div>
+                <div class="producto-info">
+                    <span class="producto-categoria">Sopes</span>
+                    <h3 class="producto-nombre">Sope con Longaniza</h3>
+                    <p class="producto-desc">   </p>
+                    <div class="producto-footer">
+                        <span class="producto-precio">$20</span>
+                         <div class="quantity-controls" style="display: none;">
+                            <button type="button" class="quantity-btn decrease-card" aria-label="Disminuir cantidad">-</button>
+                            <span class="item-quantity">0</span>
+                            <button type="button" class="quantity-btn increase-card" aria-label="Aumentar cantidad">+</button>
+                        </div>
+                        <button class="producto-btn add-to-cart-btn"><i class="fas fa-plus"></i> Añadir</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="producto-card" data-categoria="Sopes">
+                <div class="producto-badge">Nuevo</div>
+                <div class="producto-img-container">
+                    <img src="https://media.istockphoto.com/id/1188972909/es/foto/sopes-de-chorizo-y-picadillo-de-ternera-con-queso-y-frijoles.jpg?s=612x612&w=0&k=20&c=WD6P67JqxW8a79dFKMVVmM97sRAzyldiMFpN_S5yuLY=" alt="Sope con carne enchilada" class="producto-img">
+                </div>
+                <div class="producto-info">
+                    <span class="producto-categoria">Sopes</span>
+                    <h3 class="producto-nombre">Sope con Carne Enchilada</h3>
+                    <p class="producto-desc">  </p>
+                    <div class="producto-footer">
+                        <span class="producto-precio">$20</span>
+                         <div class="quantity-controls" style="display: none;">
+                            <button type="button" class="quantity-btn decrease-card" aria-label="Disminuir cantidad">-</button>
+                            <span class="item-quantity">0</span>
+                            <button type="button" class="quantity-btn increase-card" aria-label="Aumentar cantidad">+</button>
+                        </div>
+                        <button class="producto-btn add-to-cart-btn"><i class="fas fa-plus"></i> Añadir</button>
+                    </div>
+                </div>
+            </div>
+
             <div class="producto-card" data-categoria="paquetes">
                 <div class="producto-img-container">
-                    <img src="https://scontent.fcvj3-1.fna.fbcdn.net/v/t39.30808-6/486610119_9479295578795601_5034770806320010576_n.jpg?_nc_cat=108&ccb=1-7&_nc_sid=3a1ebe&_nc_eui2=AeHtYcDb79i5XYx5owWI5BZQm_sGrFSuxTqb-wasVK7FOoI7Oc_CkJbkXvnk4Sw_7CA&_nc_ohc=HE9d2FDuj7sQ7kNvwHlmJVr&_nc_oc=AdkVkSW4HVnhqgajyrinDRkl6m5Yh45Z941h9p7RjIU0DVFofEWC08Fo6l_dfpit0RVZeOF-s89CtJL_DDoBCng&_nc_zt=23&_nc_ht=scontent.fcvj3-1.fna&_nc_gid=Bh8UosvU4l0kHHhWJRZfYg&oh=00_AfHyruq17ErVxjsJ26UOQgxBV_HRDMHI_amehM9obV0JKg&oe=681B88A5" alt="Paquete Cecina 1kg" class="producto-img">
+                    <img src="https://carniceriaangel.com/wp-content/uploads/2021/08/cecina.jpg" alt="Paquete Cecina 1kg" class="producto-img">
                 </div>
                 <div class="producto-info">
                     <div class="producto-badge">Paquete</div>
@@ -1871,11 +1979,11 @@
 
             <div class="producto-card" data-categoria="peso" data-vendido-por-peso="true" data-precio-kg-cocida="500" data-precio-kg-cruda="350">
                 <div class="producto-img-container">
-                    <img src="https://media-cdn.tripadvisor.com/media/photo-s/0e/dd/7b/20/tacos-de-cecina.jpg" alt="Cecina por peso" class="producto-img">
+                    <img src="https://www.parrilliza.com/cdn/shop/files/ResAlimentadaconPasto_Natural_CorteFinoCecinaRanchera_OrganicMeatBeef_MeridaYucatanMexico_PlayadelCarmen_Tulum_Cancun_Pto.Aventuras_Pto.Morelos_Chelem_Progreso_Telchac_CDMX_Campeche_c.jpg?v=1694193356" alt="Cecina por peso" class="producto-img">
                 </div>
                 <div class="producto-info">
-                    <div class="producto-badge">Por Peso</div>
-                    <span class="producto-categoria">Carne por Peso</span>
+                    <div class="producto-badge">Por Kilo</div>
+                    <span class="producto-categoria">Carne por Kilo</span>
                     <h3 class="producto-nombre">Cecina por Kilo/Gramo</h3>
                     <p class="producto-desc">Pide la cantidad exacta de cecina que deseas. Se incluyen acompañamientos proporcionalmente (tortillas, salsas, etc. basado en 1kg).</p>
                     <div class="producto-controles-peso">
@@ -1899,11 +2007,11 @@
 
             <div class="producto-card" data-categoria="peso" data-vendido-por-peso="true" data-precio-kg-cocida="460" data-precio-kg-cruda="320">
                  <div class="producto-img-container">
-                     <img src="https://st.depositphotos.com/1257517/55962/i/950/depositphotos_559627492-stock-photo-tacos-cecina-enchilada-con-guacamole.jpg" alt="Carne Enchilada por peso" class="producto-img">
+                     <img src="https://www.launion.com.mx/images/2023/Carne-enchilada_3.jpg" alt="Carne Enchilada por peso" class="producto-img">
                  </div>
                  <div class="producto-info">
-                     <div class="producto-badge">Por Peso</div>
-                     <span class="producto-categoria">Carne por Peso</span>
+                     <div class="producto-badge">Por Kilo</div>
+                     <span class="producto-categoria">Carne por Kilo</span>
                      <h3 class="producto-nombre">Carne Enchilada por Kilo/Gramo</h3>
                      <p class="producto-desc">Tu carne enchilada favorita, a tu medida. Acompañamientos proporcionales (basado en 1kg).</p>
                      <div class="producto-controles-peso">
@@ -1927,11 +2035,11 @@
 
             <div class="producto-card" data-categoria="peso" data-vendido-por-peso="true" data-precio-kg-cocida="350" data-precio-kg-cruda="250">
                   <div class="producto-img-container">
-                      <img src="https://assets.unileversolutions.com/recipes-v2/252244.png" alt="Longaniza por peso" class="producto-img">
+                      <img src="https://i.blogs.es/e64d73/e31fe48dd6ee44fa91115a6be3aca63b/450_1000.jpg" alt="Longaniza por peso" class="producto-img">
                   </div>
                   <div class="producto-info">
-                      <div class="producto-badge">Por Peso</div>
-                      <span class="producto-categoria">Carne por Peso</span>
+                      <div class="producto-badge">Por Kilo</div>
+                      <span class="producto-categoria">Carne por Kilo</span>
                       <h3 class="producto-nombre">Longaniza por Kilo/Gramo</h3>
                       <p class="producto-desc">Longaniza almendrada por peso, ¡justo lo que necesitas! Acompañamientos proporcionales (basado en 1kg).</p>
                       <div class="producto-controles-peso">
@@ -3176,8 +3284,8 @@
                 name: name,
                 method: method,
                 table: method === 'Mesa' ? table : 'N/A',
-                 order: orderSummaryForSheet, // <-- Usamos la cadena de texto generada aquí
-                total: totalPedido, // Renombrado para mayor claridad
+                order: orderSummaryForSheet, // <-- Usamos la cadena de texto generada aquí
+                total: '$' + totalPedido, // Renombrado para mayor claridad
                 notes: notes || 'Ninguna'
             };
             // --- FIN MODIFICACIÓN ---
